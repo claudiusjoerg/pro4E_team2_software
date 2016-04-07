@@ -6,13 +6,11 @@
  */ 
 
 #include <avr/io.h>
-
+#include <stdio.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
 
 int main(void)
 {
-    /* Replace with your application code */
-    while (1) 
-    {
-    }
+	
 }
-
