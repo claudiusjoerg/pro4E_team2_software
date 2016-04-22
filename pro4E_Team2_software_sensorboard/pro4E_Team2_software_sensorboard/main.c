@@ -19,6 +19,10 @@ void init(void)
 	PORTC = 0b00000000;
 	DDRC = 0b00000000;
 }
+void UART_init()
+{
+	UCSR0A = 0; //(0<<U2Xn) - Ubrr = 16 bei 16MHz
+}
 	
 int main(void)
 {
