@@ -9,42 +9,61 @@
 #include <util/delay.h>
 #include <stdio.h>
 
+#define LED1 6
+#define LED2 1
+#define LED3 2
+#define LED4 4
+#define LED5 7
+#define LED6 5
+#define ADCwert	PINB3
+#define ChipSelect PORTD
+#define OFF 1
+#define ON 0
+
 void init_adc(void); 
 int read_adc(void);
 
 void init(void)
 {
+	//Output (low): DDxn 1, Portxn 0
+	//LED1 = PIND6;LED2 = PINB1;LED3 = PINB2;LED4 = PINB4;LED5 = PIND7;LED6 = PIND5;
 	PORTB = 0b00000000;
-	DDRB = 0b00111111;
+	DDRB |= (0<<7)|(0<<6)|(0<<5)|(1<<4)|(0<<3)|(1<<2)|(1<<1)|(0<<0);
 	PORTC = 0b00000000;
-	DDRC = 0b00000000;
+	DDRC |= (0<<7)|(0<<6)|(0<<5)|(0<<4)|(0<<3)|(0<<2)|(0<<1)|(0<<0);
+	PORTD = 0b00000000;
+	DDRD |= (1<<7)|(1<<6)|(0<<5)|(0<<4)|(0<<3)|(1<<2)|(0<<1)|(0<<0);
 }
-void UART_init()
-{
-	UCSR0A = 0; //(0<<U2Xn) - Ubrr = 16 bei 16MHz
-}
+//void UART_init()
+//{
+//UCSR0A = 0; //(0<<U2Xn) - Ubrr = 16 bei 16MHz
+//}
 	
 int main(void)
 {
-	init_adc();
+	//init_adc();
 	init();
 	
 	int value;
-	//int value_mv;
 	
 	while(1)
 	{
-		value = read_adc();
-		//value_mv = (double)value;
-		PORTB = value;
-		//printf("\nWert: %i \rButton: %i", value, value_mv);
-		_delay_ms(100);
+		ChipSelect = ON;
+		value = ADCwert;
+		PORTD |= (value & 0x1<<LED1);
+		PORTB |= (value & 0x2<<LED2);
+		PORTB |= (value & 0x4<<LED3);
+		PORTB |= (value & 0x8<<LED4);
+		PORTD |= (value & 0x10<<LED5);
+		PORTD |= (value & 0x20<<LED6);
+		ChipSelect = OFF;
+		_delay_ms(50);
 	}
 	
 	return 0;
 }
 
-void init_adc(void)
+/*void init_adc(void)
 {
 	ADMUX = 01000101; //AVCC with external capacitor at AREF pin, Pin ADC0
 	ADCSRA |= (1<<ADEN)|(1<<ADPS0)|(1<<ADPS1)|(1<<ADPS2); //Binary: 0b10000111, ADC is enabled, division factor is 128
@@ -58,4 +77,4 @@ int read_adc(void)
 
 	}
 	return ADC;
-}
+}*/
