@@ -12,16 +12,17 @@
 #define LED1 6
 #define LED2 1
 #define LED3 2
-#define LED4 4 //Wurde angepasst, überprüfen!!
+#define LED4 3
 #define LED5 7
 #define LED6 5
-#define ADCwert	PINB3
+#define ADCwert	PINB4
 #define ChipSelect PORTD
 #define OFF 1
 #define ON 0
 
 void init_adc(void); 
 void SPI_MasterInit(void);
+void SPI_MasterTransmit();
 int read_adc(void);
 
 void init(void)
@@ -32,7 +33,7 @@ void init(void)
 	DDRB |= (0<<7)|(0<<6)|(0<<5)|(1<<4)|(0<<3)|(1<<2)|(1<<1)|(0<<0);
 	PORTC = 0b00000000;
 	DDRC |= (0<<7)|(0<<6)|(0<<5)|(0<<4)|(0<<3)|(0<<2)|(0<<1)|(0<<0);
-	PORTD = 0b00000000;
+	PORTD = 0b00000100;
 	DDRD |= (1<<7)|(1<<6)|(0<<5)|(0<<4)|(0<<3)|(1<<2)|(0<<1)|(0<<0);
 }
 //void UART_init()
@@ -43,34 +44,41 @@ void init(void)
 int main(void)
 {
 	//init_adc();
-	//SPI_MasterInit();
+	SPI_MasterInit();
 	init();
 	
 	int value;
+	char startConv;
 	
 	while(1)
 	{
+		startConv = 0b00000001; //Last Bit is the Start Bit
+		SPI_MasterTransmit(startConv);
+		startConv = 0b10100000; //SGL/Diff - ODD/SIGN - MSBF: Single Ended Mode, CH0 selected, MSB first format
+		SPI_MasterTransmit(startConv);
+		PORTB = (1<<3); //signal the end of packet
 		ChipSelect = ON;
 		value = ADCwert;
+		ChipSelect = OFF;
 		PORTD |= (value & 0x1<<LED1);
 		PORTB |= (value & 0x2<<LED2);
-		PORTB |= (value & 0x4<<LED3);
-		PORTB |= (value & 0x8<<LED4);
+		PORTD |= (value & 0x4<<LED3);
+		PORTD |= (value & 0x8<<LED4);
 		PORTD |= (value & 0x10<<LED5);
 		PORTD |= (value & 0x20<<LED6);
-		ChipSelect = OFF;
+		
 		_delay_ms(50);
 	}
 	
 	return 0;
 }
-/*
+
 // SPI Communication
 void SPI_MasterInit(void)
 {
 	// Set MOSI and SCK output, all others input
-	DDR_SPI = (1<<DD_MOSI)|(1<<DD_SCK);
-	// Enable SPI, Master, set clock rate fck/16
+	DDRB = (1<<DDB3)|(1<<DDB5);
+	// Enable SPI, Master, set clock rate f_ck/16
 	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
 }
 void SPI_MasterTransmit(char cData)
@@ -78,9 +86,9 @@ void SPI_MasterTransmit(char cData)
 	// Start transmission
 	SPDR = cData;
 	// Wait for transmission complete
-	while(!(SPSR & (1<<SPIF)))
+	while(!(SPSR & (1<<SPIF))) //SPIF Transmission Flag
 	;
-}*/
+}
 
 /*void init_adc(void)
 {
