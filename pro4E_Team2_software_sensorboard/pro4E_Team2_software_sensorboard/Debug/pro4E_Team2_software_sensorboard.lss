@@ -95,11 +95,11 @@ void init(void)
   96:	08 95       	ret
 
 00000098 <main>:
-//}
 	
 int main(void)
 {
 	//init_adc();
+	//SPI_MasterInit();
 	init();
   98:	0e 94 40 00 	call	0x80	; 0x80 <init>
 		PORTB |= (value & 0x2<<LED2);

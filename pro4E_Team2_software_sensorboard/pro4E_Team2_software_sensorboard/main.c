@@ -12,7 +12,7 @@
 #define LED1 6
 #define LED2 1
 #define LED3 2
-#define LED4 4
+#define LED4 4 //Wurde angepasst, überprüfen!!
 #define LED5 7
 #define LED6 5
 #define ADCwert	PINB3
@@ -21,6 +21,7 @@
 #define ON 0
 
 void init_adc(void); 
+void SPI_MasterInit(void);
 int read_adc(void);
 
 void init(void)
@@ -42,6 +43,7 @@ void init(void)
 int main(void)
 {
 	//init_adc();
+	//SPI_MasterInit();
 	init();
 	
 	int value;
@@ -62,6 +64,23 @@ int main(void)
 	
 	return 0;
 }
+/*
+// SPI Communication
+void SPI_MasterInit(void)
+{
+	// Set MOSI and SCK output, all others input
+	DDR_SPI = (1<<DD_MOSI)|(1<<DD_SCK);
+	// Enable SPI, Master, set clock rate fck/16
+	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
+}
+void SPI_MasterTransmit(char cData)
+{
+	// Start transmission
+	SPDR = cData;
+	// Wait for transmission complete
+	while(!(SPSR & (1<<SPIF)))
+	;
+}*/
 
 /*void init_adc(void)
 {
