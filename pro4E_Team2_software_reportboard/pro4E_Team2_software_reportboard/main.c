@@ -13,6 +13,12 @@
 
 void displayAktualisieren();
 
+struct menu
+{
+	
+	
+	};
+
 void init(void)
 {
 	DDRB = 0xff;
