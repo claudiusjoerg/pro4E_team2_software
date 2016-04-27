@@ -19,7 +19,7 @@ struct menu
 	
 	};
 
-void init(void)
+void initIO(void)
 {
 	DDRB = 0xff;
 	PORTB = 0xff;
@@ -36,7 +36,8 @@ int main(void)
 	
 	// Peripheriegeräte laden
 	init_lcd();
-	init();
+	initIO();
+	initSPI();
 	
 	_delay_ms(100);
 	
@@ -87,3 +88,29 @@ void displayAktualisieren(int spannung, int strom, int prozent, int modus)
 		//printf("Modus: Schmutzig");
 	//}
 }
+/*
+// Startet die SPI-Schnittstelle
+void initSPI()
+{
+	SPI_DDR |= (1<<P_MOSI)|(1<<P_SCLK); // Pins als Output für SPI definieren
+	SPCR = (0<<SPIE)|(1<<SPE)|(0<<DORD)|(1<<MSTR)|(1<<CPOL)|(1<<CPHA)|(1<<SPR1)|(1<<SPR0); // Einstellungen für SPI
+	DDRB|=0b00001100; // B2 (CS) und B3 (LOADDACS) als Output setzen
+	PORTB&=~(LOADDACS); // LOADDACS auf LOW setzen
+	PORTB|=CS; // CS auf HIGH setzen
+}
+
+// Übermittelt Daten über SPI
+void transmitSPI(int cData)
+{
+	PORTB|=LOADDACS; // LOADDACS auf HIGH setzen
+	PORTB&=~(CS); // CS auf LOW setzen
+	_delay_us(1); // Delay min. 15ns
+	// Start transmission 
+	SPDR = cData;
+	//Wait for transmission complete
+	while(!(SPSR & (1<<SPIF)))
+	;
+	_delay_us(1); // Delay min. 15ns
+	PORTB|=CS; // CS auf HIGH setzen
+	PORTB&=~(LOADDACS); // LOADDACS auf LOW setzen
+}*/
