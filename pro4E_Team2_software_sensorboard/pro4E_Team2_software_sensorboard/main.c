@@ -9,6 +9,10 @@
 #include <util/delay.h>
 #include <stdio.h>
 
+//
+#include "ADC.h"
+#include "SPI.h"
+
 #define LED1 6
 #define LED2 1
 #define LED3 2
@@ -21,9 +25,9 @@
 #define ON 0
 
 void init_adc(void); 
-void SPI_MasterInit(void);
-void SPI_MasterTransmit();
-int read_adc(void);
+//void SPI_MasterInit(void);
+//void SPI_MasterTransmit();
+//int read_adc(void);
 
 void init(void)
 {
@@ -73,35 +77,5 @@ int main(void)
 	return 0;
 }
 
-// SPI Communication
-void SPI_MasterInit(void)
-{
-	// Set MOSI and SCK output, all others input
-	DDRB = (1<<DDB3)|(1<<DDB5);
-	// Enable SPI, Master, set clock rate f_ck/16
-	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
-}
-void SPI_MasterTransmit(char cData)
-{
-	// Start transmission
-	SPDR = cData;
-	// Wait for transmission complete
-	while(!(SPSR & (1<<SPIF))) //SPIF Transmission Flag
-	;
-}
 
-/*void init_adc(void)
-{
-	ADMUX = 01000101; //AVCC with external capacitor at AREF pin, Pin ADC0
-	ADCSRA |= (1<<ADEN)|(1<<ADPS0)|(1<<ADPS1)|(1<<ADPS2); //Binary: 0b10000111, ADC is enabled, division factor is 128
-}
 
-int read_adc(void)
-{
-	ADCSRA = ADCSRA | (1<<6);
-	while(ADCSRA & (1<<6))
-	{
-
-	}
-	return ADC;
-}*/

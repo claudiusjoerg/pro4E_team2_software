@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL := cmd.exe
+
 RM := rm -rf
 
 USER_OBJS :=
@@ -37,7 +37,9 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
-../main.c
+../ADC.c \
+../main.c \
+../SPI.c
 
 
 PREPROCESSING_SRCS += 
@@ -47,16 +49,24 @@ ASM_SRCS +=
 
 
 OBJS +=  \
-main.o
+ADC.o \
+main.o \
+SPI.o
 
 OBJS_AS_ARGS +=  \
-main.o
+ADC.o \
+main.o \
+SPI.o
 
 C_DEPS +=  \
-main.d
+ADC.d \
+main.d \
+SPI.d
 
 C_DEPS_AS_ARGS +=  \
-main.d
+ADC.d \
+main.d \
+SPI.d
 
 OUTPUT_FILE_PATH +=pro4E_Team2_software_sensorboard.elf
 
@@ -72,6 +82,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 
