@@ -33,24 +33,24 @@
 //static int RS = 8;
 //static int RW = 11;
 //static int Enable = 9;
-#define DB [] = {4, 5, 6, 7};  //wire these to DB4~7 on LCD.
+#define DB [] = {2, 3, 4, 5};  //wire these to DB4~7 on LCD. {4, 5, 6, 7}
 
 //pin assignments on Arduino Mega328P
-#define	DB0_PORT	B	//DB0 = DB7 on display (because of 4bit Mode)
-#define	DB0_BIT		0
-#define	DB1_PORT	B
-#define	DB1_BIT		1
-#define DB2_PORT	B
-#define	DB2_BIT		2
-#define DB3_PORT	B
-#define	DB3_BIT		3
+#define	DB0_PORT	D	//DB0 = DB7 on display (because of 4bit Mode)
+#define	DB0_BIT		5
+#define	DB1_PORT	D
+#define	DB1_BIT		4
+#define DB2_PORT	D
+#define	DB2_BIT		3
+#define DB3_PORT	D
+#define	DB3_BIT		2
 
 #define	RS_PORT		B
-#define	RS_BIT		4
+#define	RS_BIT		5
 #define	EN_PORT		B
-#define EN_BIT 		5
-#define	RW_PORT		B
-#define	RW_BIT		6
+#define EN_BIT 		0
+#define	RW_PORT		C
+#define	RW_BIT		3
 //#define	BL_PORT		B	// (external pullup enables backlight when PB4 is defined as input)
 //#define	BL_BIT		4
 
