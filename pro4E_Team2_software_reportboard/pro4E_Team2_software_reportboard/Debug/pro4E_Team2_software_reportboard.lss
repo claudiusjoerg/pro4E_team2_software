@@ -109,34 +109,34 @@ static void pushNibble(int value){
   digitalWrite(DB0_PORT, DB0_BIT,val_nibble & 1);
   a6:	80 ff       	sbrs	r24, 0
   a8:	02 c0       	rjmp	.+4      	; 0xae <pushNibble+0x8>
-  aa:	5d 9a       	sbi	0x0b, 5	; 11
+  aa:	45 9a       	sbi	0x08, 5	; 8
   ac:	01 c0       	rjmp	.+2      	; 0xb0 <pushNibble+0xa>
-  ae:	5d 98       	cbi	0x0b, 5	; 11
+  ae:	45 98       	cbi	0x08, 5	; 8
   digitalWrite(DB1_PORT, DB1_BIT,val_nibble>>1 & 1);
   b0:	81 ff       	sbrs	r24, 1
   b2:	02 c0       	rjmp	.+4      	; 0xb8 <pushNibble+0x12>
-  b4:	5c 9a       	sbi	0x0b, 4	; 11
+  b4:	44 9a       	sbi	0x08, 4	; 8
   b6:	01 c0       	rjmp	.+2      	; 0xba <pushNibble+0x14>
-  b8:	5c 98       	cbi	0x0b, 4	; 11
+  b8:	44 98       	cbi	0x08, 4	; 8
   digitalWrite(DB2_PORT, DB2_BIT,val_nibble>>2 & 1);
   ba:	82 ff       	sbrs	r24, 2
   bc:	02 c0       	rjmp	.+4      	; 0xc2 <pushNibble+0x1c>
-  be:	5b 9a       	sbi	0x0b, 3	; 11
+  be:	43 9a       	sbi	0x08, 3	; 8
   c0:	01 c0       	rjmp	.+2      	; 0xc4 <pushNibble+0x1e>
-  c2:	5b 98       	cbi	0x0b, 3	; 11
+  c2:	43 98       	cbi	0x08, 3	; 8
   digitalWrite(DB3_PORT, DB3_BIT,val_nibble>>3 & 1);
   c4:	83 ff       	sbrs	r24, 3
   c6:	02 c0       	rjmp	.+4      	; 0xcc <pushNibble+0x26>
-  c8:	5a 9a       	sbi	0x0b, 2	; 11
+  c8:	42 9a       	sbi	0x08, 2	; 8
   ca:	01 c0       	rjmp	.+2      	; 0xce <pushNibble+0x28>
-  cc:	5a 98       	cbi	0x0b, 2	; 11
+  cc:	42 98       	cbi	0x08, 2	; 8
 
 /************ Main Program Code **********************************************************/
 
 //pulse the Enable pin high (for a microsecond).
 static void pulseEnablePin(){
   digitalWrite(EN_PORT, EN_BIT, 1);
-  ce:	28 9a       	sbi	0x05, 0	; 5
+  ce:	5b 9a       	sbi	0x0b, 3	; 11
 	#else
 		//round up by default
 		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
@@ -149,7 +149,7 @@ static void pulseEnablePin(){
   d6:	00 00       	nop
   _delay_us(1);
   digitalWrite(EN_PORT, EN_BIT, 0);
-  d8:	28 98       	cbi	0x05, 0	; 5
+  d8:	5b 98       	cbi	0x0b, 3	; 11
   da:	08 95       	ret
 
 000000dc <commandWrite>:
@@ -163,7 +163,7 @@ static void commandWrite(int value) {
   de:	df 93       	push	r29
   e0:	ec 01       	movw	r28, r24
   digitalWrite(RS_PORT, RS_BIT, 0);
-  e2:	2d 98       	cbi	0x05, 5	; 5
+  e2:	40 98       	cbi	0x08, 0	; 8
 
 //push a byte of data through the LCD's DB4~7 pins, in two steps, clocking each with the enable pin.
 static void pushByte(int value){
@@ -204,7 +204,7 @@ static void commandWrite(int value) {
 
 static void commandWriteNibble(int nibble) {
   digitalWrite(RS_PORT, RS_BIT, 0);
- 10e:	2d 98       	cbi	0x05, 5	; 5
+ 10e:	40 98       	cbi	0x08, 0	; 8
   if (USING_RW) { digitalWrite(RW_PORT, RW_BIT, 0); }
   pushNibble(nibble);
  110:	0e 94 53 00 	call	0xa6	; 0xa6 <pushNibble>
@@ -295,7 +295,7 @@ static void clear(){
 
 static void dataWrite(int value) {
   digitalWrite(RS_PORT, RS_BIT, 1);
- 16e:	2d 9a       	sbi	0x05, 5	; 5
+ 16e:	40 9a       	sbi	0x08, 0	; 8
   }
   if (c == '\n') {
       nl_seen = 1;
@@ -381,20 +381,20 @@ void init_lcd() {
 	_delay_ms(100);
 	
   pinMode(EN_PORT, EN_BIT, OUTPUT);
- 1bc:	20 9a       	sbi	0x04, 0	; 4
+ 1bc:	53 9a       	sbi	0x0a, 3	; 10
   pinMode(RS_PORT, RS_BIT, OUTPUT);
- 1be:	25 9a       	sbi	0x04, 5	; 4
+ 1be:	38 9a       	sbi	0x07, 0	; 7
   if (USING_RW) { pinMode(RW_PORT, RW_BIT, OUTPUT); }
   pinMode(DB0_PORT, DB0_BIT,OUTPUT);
- 1c0:	55 9a       	sbi	0x0a, 5	; 10
+ 1c0:	3d 9a       	sbi	0x07, 5	; 7
   pinMode(DB1_PORT, DB1_BIT,OUTPUT);
- 1c2:	54 9a       	sbi	0x0a, 4	; 10
+ 1c2:	3c 9a       	sbi	0x07, 4	; 7
   pinMode(DB2_PORT, DB2_BIT,OUTPUT);
- 1c4:	53 9a       	sbi	0x0a, 3	; 10
+ 1c4:	3b 9a       	sbi	0x07, 3	; 7
   pinMode(DB3_PORT, DB3_BIT,OUTPUT);
- 1c6:	52 9a       	sbi	0x0a, 2	; 10
+ 1c6:	3a 9a       	sbi	0x07, 2	; 7
   digitalWrite(EN_PORT, EN_BIT, 1);
- 1c8:	28 9a       	sbi	0x05, 0	; 5
+ 1c8:	5b 9a       	sbi	0x0b, 3	; 11
 	
   commandWriteNibble(lcd_FunctionReset);	// first part of reset sequence
  1ca:	80 e3       	ldi	r24, 0x30	; 48
@@ -728,8 +728,8 @@ void displayAktualisieren()
 		displayAktualisieren();
  39e:	0e 94 84 01 	call	0x308	; 0x308 <displayAktualisieren>
  3a2:	2f ef       	ldi	r18, 0xFF	; 255
- 3a4:	81 ee       	ldi	r24, 0xE1	; 225
- 3a6:	94 e0       	ldi	r25, 0x04	; 4
+ 3a4:	83 ed       	ldi	r24, 0xD3	; 211
+ 3a6:	90 e3       	ldi	r25, 0x30	; 48
  3a8:	21 50       	subi	r18, 0x01	; 1
  3aa:	80 40       	sbci	r24, 0x00	; 0
  3ac:	90 40       	sbci	r25, 0x00	; 0

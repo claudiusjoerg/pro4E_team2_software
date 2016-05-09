@@ -45,7 +45,7 @@ int main(void)
 	while(1)
 	{
 		displayAktualisieren();
-		_delay_ms(100);
+		_delay_ms(1000);
 	}
 	
 	return 0;

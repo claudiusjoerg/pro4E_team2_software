@@ -36,19 +36,19 @@
 #define DB [] = {4, 5, 6, 7};  //wire these to DB4~7 on LCD.
 
 //pin assignments on Arduino Mega328P
-#define	DB0_PORT	D	//DB0 = DB7 on display (because of 4bit Mode)
+#define	DB0_PORT	C	//DB0 = DB7 on display (because of 4bit Mode)
 #define	DB0_BIT		5
-#define	DB1_PORT	D
+#define	DB1_PORT	C
 #define	DB1_BIT		4
-#define DB2_PORT	D
+#define DB2_PORT	C
 #define	DB2_BIT		3
-#define DB3_PORT	D
+#define DB3_PORT	C
 #define	DB3_BIT		2
 
-#define	RS_PORT		B
-#define	RS_BIT		5
-#define	EN_PORT		B
-#define EN_BIT 		0
+#define	RS_PORT		C
+#define	RS_BIT		0
+#define	EN_PORT		D
+#define EN_BIT 		3
 #define	RW_PORT		C
 #define	RW_BIT		3
 //#define	BL_PORT		B	// (external pullup enables backlight when PB4 is defined as input)
