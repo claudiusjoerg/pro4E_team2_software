@@ -11,19 +11,19 @@
 #include <avr/interrupt.h>
 #include "lcd_UNO.h"
 
-//void displayAktualisieren();
+void displayAktualisieren();
 void initIO();
 
 void initIO(void)
 {
-	/*DDRB = 0b10000100;
-	PORTB = 0b00000000;
+	DDRB = 0b00000000;
+	PORTB = 0b10000100;
 	
-	DDRC = 0b00010000;
-	PORTC = 0b00000000;
+	DDRC = 0b00000000;
+	PORTC = 0b00010000;
 	
-	DDRD = 0b00111100;
-	PORTD = 0b00000000;*/
+	DDRD = 0b00000000;
+	PORTD = 0b00111100;
 }
 	
 int main(void)
@@ -36,29 +36,27 @@ int main(void)
 	stdout = &fd_lcd;
 	
 	// Peripheriegeräte laden
+	//initIO();
 	init_lcd();
-	initIO();
 	//initSPI();
 	
 	_delay_ms(100);
 	
 	while(1)
 	{
-		//displayAktualisieren();
-		lcd_cursor_addr(LINE1);
-		printf("For Runners");
+		displayAktualisieren();
 		_delay_ms(100);
 	}
 	
 	return 0;
 }
-/*
+
 // Diese Methode wird aufgerufen, wenn das Display aktualisiert werden soll
-void displayAktualisieren(int spannung, int strom, int prozent, int modus)
+void displayAktualisieren()
 {
 	// Zeile für Spannung
 	lcd_cursor_addr(LINE1);
-	printf("Bun Di");
+	printf("For Runners");
 	// Zeile für Strom
 	lcd_cursor_addr(LINE2);
 	printf("Bun Di");
@@ -69,7 +67,7 @@ void displayAktualisieren(int spannung, int strom, int prozent, int modus)
 	lcd_cursor_addr(LINE4);
 	printf("Bun Di");
 }
-
+/*
 // Startet die SPI-Schnittstelle
 void initSPI()
 {

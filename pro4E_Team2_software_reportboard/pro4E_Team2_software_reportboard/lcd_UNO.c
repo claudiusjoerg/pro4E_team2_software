@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
-#include "lcd_UNO.h"
+#include "lcd_UNO.h" 
 
 //LCD instruction
 #define lcd_Clear 0x01
@@ -33,7 +33,7 @@
 //static int RS = 8;
 //static int RW = 11;
 //static int Enable = 9;
-#define DB [] = {2, 3, 4, 5};  //wire these to DB4~7 on LCD. {4, 5, 6, 7}
+#define DB [] = {4, 5, 6, 7};  //wire these to DB4~7 on LCD.
 
 //pin assignments on Arduino Mega328P
 #define	DB0_PORT	D	//DB0 = DB7 on display (because of 4bit Mode)
