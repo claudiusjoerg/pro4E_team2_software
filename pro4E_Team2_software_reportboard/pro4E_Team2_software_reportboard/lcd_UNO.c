@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
-#include "lcd_UNO.h"
+#include "lcd_UNO.h" 
 
 //LCD instruction
 #define lcd_Clear 0x01
@@ -36,21 +36,21 @@
 #define DB [] = {4, 5, 6, 7};  //wire these to DB4~7 on LCD.
 
 //pin assignments on Arduino Mega328P
-#define	DB0_PORT	B	//DB0 = DB7 on display (because of 4bit Mode)
-#define	DB0_BIT		0
-#define	DB1_PORT	B
-#define	DB1_BIT		1
-#define DB2_PORT	B
-#define	DB2_BIT		2
-#define DB3_PORT	B
-#define	DB3_BIT		3
+#define	DB0_PORT	C	//DB0 = DB7 on display (because of 4bit Mode)
+#define	DB0_BIT		5
+#define	DB1_PORT	C
+#define	DB1_BIT		4
+#define DB2_PORT	C
+#define	DB2_BIT		3
+#define DB3_PORT	C
+#define	DB3_BIT		2
 
-#define	RS_PORT		B
-#define	RS_BIT		4
-#define	EN_PORT		B
-#define EN_BIT 		5
-#define	RW_PORT		B
-#define	RW_BIT		6
+#define	RS_PORT		C
+#define	RS_BIT		0
+#define	EN_PORT		D
+#define EN_BIT 		3
+#define	RW_PORT		C
+#define	RW_BIT		3
 //#define	BL_PORT		B	// (external pullup enables backlight when PB4 is defined as input)
 //#define	BL_BIT		4
 
