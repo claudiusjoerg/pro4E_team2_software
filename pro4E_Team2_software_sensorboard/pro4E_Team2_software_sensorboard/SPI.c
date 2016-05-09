@@ -11,11 +11,12 @@ void SPI_MasterInit(void)
 	// Enable SPI, Master, set clock rate f_ck/16
 	SPCR = (1<<SPE)|(1<<MSTR)|(1<<SPR0);
 }
-void SPI_MasterTransmit(char cData)
+char SPI_MasterTransmit(char cData)
 {
 	// Start transmission
 	SPDR = cData;
 	// Wait for transmission complete
 	while(!(SPSR & (1<<SPIF))) //SPIF Transmission Flag
 	;
+	return SPDR;
 }
