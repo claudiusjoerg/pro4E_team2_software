@@ -22,3 +22,16 @@ while(PORTB2|==)
 {
 	
 }
+
+
+
+
+
+
+	TCCR0A = 1<<CS01;			//divide by 8 * 256
+	TIMSK0 = 1<<TOIE0;			//enable timer interrupt
+
+	DDRB = 0xFF;
+	sei();
+	for(;;)				// main loop
+	PORTB = enc_delta;
