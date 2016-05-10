@@ -17,7 +17,7 @@
 
 void displayAktualisieren();
 void initIO();
-void initISR();
+
 
 volatile char enc_delta;
 volatile int button;
@@ -83,3 +83,4 @@ void displayAktualisieren()
 	printf("Zeile 4\n");
 }
 */
+
