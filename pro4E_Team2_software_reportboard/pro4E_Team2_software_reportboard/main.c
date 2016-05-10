@@ -10,20 +10,26 @@
 #include <stdio.h>
 #include <avr/interrupt.h>
 #include "lcd_UNO.h"
+#include "SPI.h"
+
+#define PHASE_A	(PINC & 1<<PINC0)	// PINC.0
+#define PHASE_B (PINC & 1<<PINC1)	// PINC.1
 
 void displayAktualisieren();
 void initIO();
 
+volatile char	enc_delta;		// -128 ... 127
+
 void initIO(void)
 {
-	DDRB = 0b00000000;
-	PORTB = 0b10000100;
+	//DDRB = 0b00000001;
+	//PORTB = 0b10000100;
 	
-	DDRC = 0b00000000;
-	PORTC = 0b00010000;
+	//DDRC = 0b00000000;
+	//PORTC = 0b00010000;
 	
-	DDRD = 0b00000000;
-	PORTD = 0b00111100;
+	//DDRD = 0b00000000;
+	//PORTD = 0b00111100;
 }
 	
 int main(void)
@@ -36,36 +42,45 @@ int main(void)
 	stdout = &fd_lcd;
 	
 	// Peripheriegeräte laden
-	//initIO();
+	initIO();
 	init_lcd();
 	//initSPI();
 	
-	_delay_ms(100);
+	TCCR0A = 1<<CS01;			//divide by 8 * 256
+	TIMSK0 = 1<<TOIE0;			//enable timer interrupt
+
+	DDRB = 0xFF;
+	sei();
+	for(;;)				// main loop
+	PORTB = enc_delta;
 	
+	
+	_delay_ms(100);
+
 	while(1)
 	{
 		displayAktualisieren();
+		//printf("NEIN NEIN %d\n", i++);
 		_delay_ms(1000);
 	}
 	
 	return 0;
 }
 
-// Diese Methode wird aufgerufen, wenn das Display aktualisiert werden soll
 void displayAktualisieren()
 {
 	// Zeile für Spannung
 	lcd_cursor_addr(LINE1);
-	printf("For Runners");
+	printf("Zeile 1");
 	// Zeile für Strom
 	lcd_cursor_addr(LINE2);
-	printf("Bun Di");
+	printf("Zeile 2");
 	// Zeile für Prozent
 	lcd_cursor_addr(LINE3);
-	printf("Bun Di");
+	printf("Zeile 3");
 	// Zeile für Modus
 	lcd_cursor_addr(LINE4);
-	printf("Bun Di");
+	printf("Zeile 4\n");
 }
 /*
 // Startet die SPI-Schnittstelle
@@ -93,3 +108,23 @@ void transmitSPI(int cData)
 	PORTB|=CS; // CS auf HIGH setzen
 	PORTB&=~(LOADDACS); // LOADDACS auf LOW setzen
 }*/
+
+SIGNAL (SIG_OVERFLOW0)
+{
+	static char enc_last = 0x01;
+	char i = 0;
+
+	if( PHASE_A )
+	i = 1;
+
+	if( PHASE_B )
+	i ^= 3;				// convert gray to binary
+
+	i -= enc_last;			// difference new - last
+
+	if( i & 1 ){				// bit 0 = value (1)
+		enc_last += i;			// store new as next last
+
+		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
+	}
+}

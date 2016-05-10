@@ -36,21 +36,21 @@
 #define DB [] = {4, 5, 6, 7};  //wire these to DB4~7 on LCD.
 
 //pin assignments on Arduino Mega328P
-#define	DB0_PORT	C	//DB0 = DB7 on display (because of 4bit Mode)
-#define	DB0_BIT		5
+#define	DB0_PORT	C	//DB0 = DB4 on display (because of 4bit Mode)
+#define	DB0_BIT		2
 #define	DB1_PORT	C
-#define	DB1_BIT		4
+#define	DB1_BIT		3
 #define DB2_PORT	C
-#define	DB2_BIT		3
+#define	DB2_BIT		4
 #define DB3_PORT	C
-#define	DB3_BIT		2
+#define	DB3_BIT		5
 
 #define	RS_PORT		C
 #define	RS_BIT		0
-#define	EN_PORT		D
-#define EN_BIT 		3
-#define	RW_PORT		C
-#define	RW_BIT		3
+#define	EN_PORT		C
+#define EN_BIT 		1
+#define	RW_PORT		X
+#define	RW_BIT		0
 //#define	BL_PORT		B	// (external pullup enables backlight when PB4 is defined as input)
 //#define	BL_BIT		4
 
@@ -93,18 +93,23 @@ static void pushByte(int value){
   pushNibble(val_upper);
   pushNibble(val_lower);
   _delay_us(27);
+  _delay_us(27);
 }
 
 static void commandWriteNibble(int nibble) {
   digitalWrite(RS_PORT, RS_BIT, 0);
+#if USING_RW != 0
   if (USING_RW) { digitalWrite(RW_PORT, RW_BIT, 0); }
+#endif
   pushNibble(nibble);
   _delay_us(27);
 }
 
 static void commandWrite(int value) {
   digitalWrite(RS_PORT, RS_BIT, 0);
+#if USING_RW != 0
   if (USING_RW) { digitalWrite(RW_PORT, RW_BIT, 0); }
+#endif
   pushByte(value);
   //Remark: some commands needs additional delay!
 }
@@ -118,7 +123,9 @@ extern void lcd_cursor_addr(int pos){
 
 static void dataWrite(int value) {
   digitalWrite(RS_PORT, RS_BIT, 1);
+#if USING_RW != 0
   if (USING_RW) { digitalWrite(RW_PORT, RW_BIT, 0); }
+#endif
   pushByte(value);
 }
 
@@ -162,7 +169,9 @@ void init_lcd() {
 	
   pinMode(EN_PORT, EN_BIT, OUTPUT);
   pinMode(RS_PORT, RS_BIT, OUTPUT);
+#if USING_RW != 0
   if (USING_RW) { pinMode(RW_PORT, RW_BIT, OUTPUT); }
+#endif
   pinMode(DB0_PORT, DB0_BIT,OUTPUT);
   pinMode(DB1_PORT, DB1_BIT,OUTPUT);
   pinMode(DB2_PORT, DB2_BIT,OUTPUT);

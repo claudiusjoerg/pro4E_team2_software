@@ -43,8 +43,8 @@ extern void init_lcd(void);
 extern void lcd_cursor_addr(int pos);
 
 #define LINE1 0
-#define LINE3 16
+#define LINE3 20
 #define LINE2 64
-#define LINE4 80
+#define LINE4 84
 
 #endif // LCD_KEYPAD_M2560_H

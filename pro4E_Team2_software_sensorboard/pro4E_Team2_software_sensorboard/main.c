@@ -12,6 +12,7 @@
 //
 #include "ADC.h"
 #include "SPI.h"
+#include "Tranceiver.h"
 
 #define LED1 6
 #define LED2 1
@@ -23,11 +24,8 @@
 #define ChipSelect PORTD
 #define OFF 1
 #define ON 0
-
-void init_adc(void); 
-//void SPI_MasterInit(void);
-//void SPI_MasterTransmit();
-//int read_adc(void);
+#define SelectADC PORTD //1...7 
+#define SelectTranceiver PORTD //1...7
 
 void init(void)
 {
@@ -39,11 +37,11 @@ void init(void)
 	DDRC |= (0<<7)|(0<<6)|(0<<5)|(0<<4)|(0<<3)|(0<<2)|(0<<1)|(0<<0);
 	PORTD = 0b00000100;
 	DDRD |= (1<<7)|(1<<6)|(0<<5)|(0<<4)|(0<<3)|(1<<2)|(0<<1)|(0<<0);
+	
+	//Transceiver
+	UARTSPI = 0; //Select SPI
 }
-//void UART_init()
-//{
-//UCSR0A = 0; //(0<<U2Xn) - Ubrr = 16 bei 16MHz
-//}
+
 	
 int main(void)
 {
@@ -51,19 +49,45 @@ int main(void)
 	SPI_MasterInit();
 	init();
 	
-	int value;
-	char startConv;
+	char value1;
+	char value2;
+	int	ADCvalue;
+	char SendData;
 	
 	while(1)
 	{
-		startConv = 0b00000001; //Last Bit is the Start Bit
-		SPI_MasterTransmit(startConv);
-		startConv = 0b10100000; //SGL/Diff - ODD/SIGN - MSBF: Single Ended Mode, CH0 selected, MSB first format
-		SPI_MasterTransmit(startConv);
+		//ADC Slave
+		PORTB4 &= ~SelectADC;
+		SendData = 0b00000001; //Last Bit is the Start Bit
+		value1 = SPI_MasterTransmit(SendData);
+		PORTX |= SelectADC;
+		
+		PORTX &= ~SelectADC;
+		SendData = 0b10100000; //SGL/Diff - ODD/SIGN - MSBF: Single Ended Mode, CH0 selected, MSB first format
+		value2 = SPI_MasterTransmit(SendData);
+		PORTX |= SelectADC;
+		
+		//Zusammensetzen
+		ADCvalue = value1;
+		ADCvalue = value2 << 8;
+		
+		//Tranceiver Slave
+			PORTD3 &= ~SelectTranceiver;
+			SendData = 0b00000001; //Last Bit is the Start Bit
+			value1 = SPI_MasterTransmit(SendData);
+			PORTX |= SelectTranceiver;				
+			PORTX &= ~SelectTranceiver;
+			SendData = 0b10100000; //SGL/Diff - ODD/SIGN - MSBF: Single Ended Mode, CH0 selected, MSB first format
+			value2 = SPI_MasterTransmit(SendData);
+			PORTX |= SelectTranceiver;
+		
+		
+		/*
 		PORTB = (1<<3); //signal the end of packet
 		ChipSelect = ON;
 		value = ADCwert;
 		ChipSelect = OFF;
+		*/
 		PORTD |= (value & 0x1<<LED1);
 		PORTB |= (value & 0x2<<LED2);
 		PORTD |= (value & 0x4<<LED3);
