@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Atmel Studio Solution File, Format Version 11.00
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{54F91283-7BC4-4236-8FF9-10F437C3AD48}") = "SPI_MSpass", "SPI_MSpass\SPI_MSpass.cproj", "{F3482A26-41B3-48DA-9BC3-F73B59196B21}"
 EndProject
 Global
