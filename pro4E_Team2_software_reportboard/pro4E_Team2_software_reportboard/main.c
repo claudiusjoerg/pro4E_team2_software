@@ -17,7 +17,7 @@
 
 void displayAktualisieren();
 void initIO();
-void initISR();
+
 
 volatile char enc_delta;
 volatile int button;
@@ -79,15 +79,3 @@ void displayAktualisieren()
 	printf("Zeile 4\n");
 }
 
-void initISR ()
-{
-	TCCR0B = 0b010; // Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
-	TIMSK0 = (1 << TOIE0);	//enable timer interrupt
-	sei();	
-}
-
-ISR (TIMER0_OVF_vect)
-{
-	button = check_button();
-	enc_delta = encodeFunc();
-}

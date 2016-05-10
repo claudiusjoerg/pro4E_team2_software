@@ -36,5 +36,5 @@ void controlLED();
 */
 
 void initISR();
-/* Timeinterrupt
+/* Time_interrupt
 */
