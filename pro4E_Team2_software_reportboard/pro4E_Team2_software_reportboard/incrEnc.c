@@ -20,6 +20,10 @@
 #define EncPIN_A 6
 #define EncPIN_B 5
 #define EncPIN_BT 4
+#define EncPIN_LED_BT 0
+#define EncPIN_LED_3 1
+#define EncPIN_LED_2 2
+#define EncPIN_LED_1 3
 #define EncDDR DDRD
 #define BUTTON (1<<2)
 #define MODE (1<<4)
@@ -35,7 +39,7 @@ volatile int button = 0;
 
 void init_encoder()
 {
-	EncDDR |= (0<<EncPIN_A)|(0<<EncPIN_B)|(0<<EncPIN_BT);
+	EncDDR |= (0<<EncPIN_A)|(0<<EncPIN_B)|(0<<EncPIN_BT)|;
 }
 
 static int check_button(void)
