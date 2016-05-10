@@ -81,49 +81,54 @@ char encodeFunc()
 		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
 	}
 	
-void controlLED(value_distance)
+void controlLED()
 {
-	/*if(enc_delta>0){  //sind im uhrzeigersinn
-		int i=EncPIN_LED1;
-		for(int j=0; j<=value_distance; j++)*/
-
-	switch(value_distance){
+	switch(enc_delta){
 	case 1:
-		if(enc_delta>0){
-			1<<EncPIN_LED1;
-		}
-		else
-		{
-			1<<EncPIN_LED3;
-		}
+		1<<EncPIN_LED1;
 		break;
-		
+	case -1:
+		1<<EncPIN_LED3;
+		break;
 	case 2:
 		1<<EncPIN_LED2;
 		break;
-		
+	case -2:
+		1<<EncPIN_LED2;
+		break;
 	case 3:
-		if(enc_delta>0){
-			1<<EncPIN_LED3;
-		}
-		else
-		{
-			1<<EncPIN_LED1;
-		}
+		1<<EncPIN_LED3;
+		break;
+	case -3:
+		1<<EncPIN_LED1;
 		break;
 	
 	default:
-		if(value_distance%3==0)
+		if(enc_delta%3==0)
 		{
+			if(enc_delta>0)
+			{
 			goto case 3;
+			}
+			else
+			{
+				goto case -3;
+			}
 		}
-		if((value_distance+1)%3==0)
+		if((enc_delta+1)%3==0)
 		{
 			goto case 2;
 		}
-		if((value_distance-1)%3==0)
+		if((enc_delta-1)%3==0)
 		{
-			goto case 1;
+			if(enc_delta>0)
+			{
+				goto case 1;
+			}
+			else
+			{
+				goto case -1;
+			}
 		}
 		break;
 	}
