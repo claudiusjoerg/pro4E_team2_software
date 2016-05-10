@@ -5,33 +5,72 @@
  * Author : Sarah
  */ 
 
-void incrEnc()
+#include <avr/io.h>
+#include <util/delay.h>
+#include <stdio.h>
+#include <avr/interrupt.h>
+#include "incrEnc.h"
+
+// Pins definieren
+#define BUTTONMASK 0b00010000
+
+#define EncPort_A PORTD
+#define EncPort_B PORTD
+#define EncPort_BT PORTD
+#define EncPIN_A 6
+#define EncPIN_B 5
+#define EncPIN_BT 4
+#define EncDDR DDRD
+#define BUTTON (1<<2)
+#define MODE (1<<4)
+#define CNT_MAX 10
+#define CNT_MIN 0
+#define AUTOREPEAT_SET 50
+
+#define PHASE_A	(EncPort_A & 1<<EncPIN_A)	// PINC.0
+#define PHASE_B (EncPort_B & 1<<EncPIN_B)	// PINC.1
+
+volatile char enc_delta;		// -128 ... 127
+volatile int button = 0;
+
+void init_encoder()
 {
-	
-	
+	EncDDR |= (0<<EncPIN_A)|(0<<EncPIN_B)|(0<<EncPIN_BT);
 }
-#define LED1 = 0;
-#define LED2 = 1;
-#define A = 2;
-#define B = 3;
 
-DDRB = 0b00000011;//pins B1-B8 werden auf in- bzw. output gestellt
-PORTB = 0b00000000;//startzustand fuer signal der pins einstellen
-
-while(PORTB2|==)
+static int check_button(void)
 {
+	static char old_button;
+	//static int autorepeat;
+	char current_button = ~PIND; //liest invertierte PINS ein, weil Pull-Up
+	button |= ~old_button & current_button & BUTTONMASK;
 	
+	// Button des Drehgebers
+	if (button == BUTTON)
+	{
+		//autorepeat = AUTOREPEAT_SET; //setzt Verzögerung
+		button = 1;
+	}else{
+		button = 0;
+	}
 }
 
+char encodeFunc()
+{
+	static char enc_last = 0x01;
+	char i = 0;
 
+	if( PHASE_A )
+	i = 1;
 
+	if( PHASE_B )
+	i ^= 3;				// convert gray to binary
 
+	i -= enc_last;			// difference new - last
 
+	if( i & 1 ){				// bit 0 = value (1)
+		enc_last += i;			// store new as next last
 
-	TCCR0A = 1<<CS01;			//divide by 8 * 256
-	TIMSK0 = 1<<TOIE0;			//enable timer interrupt
-
-	DDRB = 0xFF;
-	sei();
-	for(;;)				// main loop
-	PORTB = enc_delta;
+		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
+	}
+}

@@ -11,14 +11,14 @@
 #include <avr/interrupt.h>
 #include "lcd_UNO.h"
 #include "SPI.h"
-
-#define PHASE_A	(PINC & 1<<PINC0)	// PINC.0
-#define PHASE_B (PINC & 1<<PINC1)	// PINC.1
+#include "incrEnc.h"
 
 void displayAktualisieren();
 void initIO();
+void initISR();
 
-volatile char	enc_delta;		// -128 ... 127
+volatile char enc_delta;
+volatile int button;
 
 void initIO(void)
 {
@@ -44,23 +44,24 @@ int main(void)
 	// Peripheriegeräte laden
 	initIO();
 	init_lcd();
-	//initSPI();
-	
-	TCCR0A = 1<<CS01;			//divide by 8 * 256
-	TIMSK0 = 1<<TOIE0;			//enable timer interrupt
-
-	DDRB = 0xFF;
-	sei();
-	for(;;)				// main loop
-	PORTB = enc_delta;
-	
-	
+	init_encoder();
+	initISR();
+		
 	_delay_ms(100);
 
 	while(1)
 	{
+		if (button == 1)
+		{
+			PORTD |= (1<<0);
+		}else{
+			PORTD |= (0<<0);
+		}
+		
+		enc_delta;
+		
 		displayAktualisieren();
-		//printf("NEIN NEIN %d\n", i++);
+		
 		_delay_ms(1000);
 	}
 	
@@ -82,49 +83,16 @@ void displayAktualisieren()
 	lcd_cursor_addr(LINE4);
 	printf("Zeile 4\n");
 }
-/*
-// Startet die SPI-Schnittstelle
-void initSPI()
+
+void initISR ()
 {
-	SPI_DDR |= (1<<P_MOSI)|(1<<P_SCLK); // Pins als Output für SPI definieren
-	SPCR = (0<<SPIE)|(1<<SPE)|(0<<DORD)|(1<<MSTR)|(1<<CPOL)|(1<<CPHA)|(1<<SPR1)|(1<<SPR0); // Einstellungen für SPI
-	DDRB|=0b00001100; // B2 (CS) und B3 (LOADDACS) als Output setzen
-	PORTB&=~(LOADDACS); // LOADDACS auf LOW setzen
-	PORTB|=CS; // CS auf HIGH setzen
+	TCCR0B = 0b010; // Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
+	TIMSK0 = (1 << TOIE0);	//enable timer interrupt
+	sei();	
 }
 
-// Übermittelt Daten über SPI
-void transmitSPI(int cData)
+ISR (TIMER0_OVF_vect)
 {
-	PORTB|=LOADDACS; // LOADDACS auf HIGH setzen
-	PORTB&=~(CS); // CS auf LOW setzen
-	_delay_us(1); // Delay min. 15ns
-	// Start transmission 
-	SPDR = cData;
-	//Wait for transmission complete
-	while(!(SPSR & (1<<SPIF)))
-	;
-	_delay_us(1); // Delay min. 15ns
-	PORTB|=CS; // CS auf HIGH setzen
-	PORTB&=~(LOADDACS); // LOADDACS auf LOW setzen
-}*/
-
-SIGNAL (SIG_OVERFLOW0)
-{
-	static char enc_last = 0x01;
-	char i = 0;
-
-	if( PHASE_A )
-	i = 1;
-
-	if( PHASE_B )
-	i ^= 3;				// convert gray to binary
-
-	i -= enc_last;			// difference new - last
-
-	if( i & 1 ){				// bit 0 = value (1)
-		enc_last += i;			// store new as next last
-
-		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
-	}
+	button = check_button();
+	enc_delta = encodeFunc();
 }
