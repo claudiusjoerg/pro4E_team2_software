@@ -131,6 +131,12 @@
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="menutree.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="menutree_demo.c">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="SPI.c">
       <SubType>compile</SubType>
     </Compile>

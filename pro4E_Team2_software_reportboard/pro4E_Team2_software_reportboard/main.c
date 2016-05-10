@@ -12,6 +12,8 @@
 #include "lcd_UNO.h"
 #include "SPI.h"
 #include "incrEnc.h"
+#include "board.h"
+#include "menutree.h"
 
 void displayAktualisieren();
 void initIO();
