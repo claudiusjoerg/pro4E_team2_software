@@ -37,6 +37,7 @@ SUBDIRS :=
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
+../incrEnc.c \
 ../lcd_UNO.c \
 ../main.c \
 ../SPI.c
@@ -49,21 +50,25 @@ ASM_SRCS +=
 
 
 OBJS +=  \
+incrEnc.o \
 lcd_UNO.o \
 main.o \
 SPI.o
 
 OBJS_AS_ARGS +=  \
+incrEnc.o \
 lcd_UNO.o \
 main.o \
 SPI.o
 
 C_DEPS +=  \
+incrEnc.d \
 lcd_UNO.d \
 main.d \
 SPI.d
 
 C_DEPS_AS_ARGS +=  \
+incrEnc.d \
 lcd_UNO.d \
 main.d \
 SPI.d
@@ -82,6 +87,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 
