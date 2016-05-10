@@ -101,26 +101,41 @@ Disassembly of section .text:
   a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
 000000a6 <pushNibble>:
+}
+
+//push a nibble of data through the the LCD's DB4~7 pins, clocking with the Enable pin.
+static void pushNibble(int value){
+  int val_nibble= value & 0x0F;  //clean the value.  (unnecessary)
+  digitalWrite(DB0_PORT, DB0_BIT,val_nibble & 1);
   a6:	80 ff       	sbrs	r24, 0
   a8:	02 c0       	rjmp	.+4      	; 0xae <pushNibble+0x8>
   aa:	42 9a       	sbi	0x08, 2	; 8
   ac:	01 c0       	rjmp	.+2      	; 0xb0 <pushNibble+0xa>
   ae:	42 98       	cbi	0x08, 2	; 8
+  digitalWrite(DB1_PORT, DB1_BIT,val_nibble>>1 & 1);
   b0:	81 ff       	sbrs	r24, 1
   b2:	02 c0       	rjmp	.+4      	; 0xb8 <pushNibble+0x12>
   b4:	43 9a       	sbi	0x08, 3	; 8
   b6:	01 c0       	rjmp	.+2      	; 0xba <pushNibble+0x14>
   b8:	43 98       	cbi	0x08, 3	; 8
+  digitalWrite(DB2_PORT, DB2_BIT,val_nibble>>2 & 1);
   ba:	82 ff       	sbrs	r24, 2
   bc:	02 c0       	rjmp	.+4      	; 0xc2 <pushNibble+0x1c>
   be:	44 9a       	sbi	0x08, 4	; 8
   c0:	01 c0       	rjmp	.+2      	; 0xc4 <pushNibble+0x1e>
   c2:	44 98       	cbi	0x08, 4	; 8
+  digitalWrite(DB3_PORT, DB3_BIT,val_nibble>>3 & 1);
   c4:	83 ff       	sbrs	r24, 3
   c6:	02 c0       	rjmp	.+4      	; 0xcc <pushNibble+0x26>
   c8:	45 9a       	sbi	0x08, 5	; 8
   ca:	01 c0       	rjmp	.+2      	; 0xce <pushNibble+0x28>
   cc:	45 98       	cbi	0x08, 5	; 8
+
+/************ Main Program Code **********************************************************/
+
+//pulse the Enable pin high (for a microsecond).
+static void pulseEnablePin(){
+  digitalWrite(EN_PORT, EN_BIT, 1);
   ce:	41 9a       	sbi	0x08, 1	; 8
 	#else
 		//round up by default
@@ -132,13 +147,24 @@ Disassembly of section .text:
   d2:	8a 95       	dec	r24
   d4:	f1 f7       	brne	.-4      	; 0xd2 <pushNibble+0x2c>
   d6:	00 00       	nop
+  _delay_us(1);
+  digitalWrite(EN_PORT, EN_BIT, 0);
   d8:	41 98       	cbi	0x08, 1	; 8
   da:	08 95       	ret
 
 000000dc <pushByte>:
+  digitalWrite(DB3_PORT, DB3_BIT,val_nibble>>3 & 1);
+  pulseEnablePin();
+}
+
+//push a byte of data through the LCD's DB4~7 pins, in two steps, clocking each with the enable pin.
+static void pushByte(int value){
   dc:	cf 93       	push	r28
   de:	df 93       	push	r29
   e0:	ec 01       	movw	r28, r24
+  int val_lower = value & 0x0F;
+  int val_upper = value >> 4;
+  pushNibble(val_upper);
   e2:	95 95       	asr	r25
   e4:	87 95       	ror	r24
   e6:	95 95       	asr	r25
@@ -148,6 +174,7 @@ Disassembly of section .text:
   ee:	95 95       	asr	r25
   f0:	87 95       	ror	r24
   f2:	0e 94 53 00 	call	0xa6	; 0xa6 <pushNibble>
+  pushNibble(val_lower);
   f6:	ce 01       	movw	r24, r28
   f8:	8f 70       	andi	r24, 0x0F	; 15
   fa:	99 27       	eor	r25, r25
@@ -158,17 +185,40 @@ Disassembly of section .text:
  106:	80 e9       	ldi	r24, 0x90	; 144
  108:	8a 95       	dec	r24
  10a:	f1 f7       	brne	.-4      	; 0x108 <pushByte+0x2c>
+  _delay_us(27);
+  _delay_us(27);
+}
  10c:	df 91       	pop	r29
  10e:	cf 91       	pop	r28
  110:	08 95       	ret
 
 00000112 <commandWrite>:
+  pushNibble(nibble);
+  _delay_us(27);
+}
+
+static void commandWrite(int value) {
+  digitalWrite(RS_PORT, RS_BIT, 0);
  112:	40 98       	cbi	0x08, 0	; 8
+#if USING_RW != 0
+  if (USING_RW) { digitalWrite(RW_PORT, RW_BIT, 0); }
+#endif
+  pushByte(value);
  114:	0e 94 6e 00 	call	0xdc	; 0xdc <pushByte>
  118:	08 95       	ret
 
 0000011a <commandWriteNibble>:
+  _delay_us(27);
+  _delay_us(27);
+}
+
+static void commandWriteNibble(int nibble) {
+  digitalWrite(RS_PORT, RS_BIT, 0);
  11a:	40 98       	cbi	0x08, 0	; 8
+#if USING_RW != 0
+  if (USING_RW) { digitalWrite(RW_PORT, RW_BIT, 0); }
+#endif
+  pushNibble(nibble);
  11c:	0e 94 53 00 	call	0xa6	; 0xa6 <pushNibble>
  120:	80 e9       	ldi	r24, 0x90	; 144
  122:	8a 95       	dec	r24
@@ -176,13 +226,27 @@ Disassembly of section .text:
  126:	08 95       	ret
 
 00000128 <lcd_putchar>:
+ * Sends a character to the LCD display.
+ * '\n' clears the display after the *next* character
+ * '\r' sets the cursor address to begin of 2nd line
+ */
+int lcd_putchar(char c, FILE *unused)
+{
  128:	cf 93       	push	r28
  12a:	c8 2f       	mov	r28, r24
+  static char nl_seen;
+  if (nl_seen && c != '\n') {
  12c:	80 91 0e 01 	lds	r24, 0x010E
  130:	88 23       	and	r24, r24
  132:	79 f0       	breq	.+30     	; 0x152 <lcd_putchar+0x2a>
  134:	ca 30       	cpi	r28, 0x0A	; 10
  136:	79 f0       	breq	.+30     	; 0x156 <lcd_putchar+0x2e>
+  pushByte(value);
+}
+
+//send the clear screen command to the LCD
+static void clear(){
+  commandWrite(lcd_Clear);
  138:	81 e0       	ldi	r24, 0x01	; 1
  13a:	90 e0       	ldi	r25, 0x00	; 0
  13c:	0e 94 89 00 	call	0x112	; 0x112 <commandWrite>
@@ -198,23 +262,53 @@ Disassembly of section .text:
  146:	f1 f7       	brne	.-4      	; 0x144 <lcd_putchar+0x1c>
  148:	00 c0       	rjmp	.+0      	; 0x14a <lcd_putchar+0x22>
  14a:	00 00       	nop
+{
+  static char nl_seen;
+  if (nl_seen && c != '\n') {
+      // first character after newline, clear display and home cursor.
+      clear();
+      nl_seen = 0;
  14c:	10 92 0e 01 	sts	0x010E, r1
  150:	06 c0       	rjmp	.+12     	; 0x15e <lcd_putchar+0x36>
+  }
+  if (c == '\n') {
  152:	ca 30       	cpi	r28, 0x0A	; 10
  154:	21 f4       	brne	.+8      	; 0x15e <lcd_putchar+0x36>
+      nl_seen = 1;
  156:	81 e0       	ldi	r24, 0x01	; 1
  158:	80 93 0e 01 	sts	0x010E, r24
  15c:	0c c0       	rjmp	.+24     	; 0x176 <lcd_putchar+0x4e>
+  }
+  else if (c != '\r') {
  15e:	cd 30       	cpi	r28, 0x0D	; 13
  160:	31 f0       	breq	.+12     	; 0x16e <lcd_putchar+0x46>
+  _delay_us(1000);
+}
+
+
+static void dataWrite(int value) {
+  digitalWrite(RS_PORT, RS_BIT, 1);
  162:	40 9a       	sbi	0x08, 0	; 8
+#if USING_RW != 0
+  if (USING_RW) { digitalWrite(RW_PORT, RW_BIT, 0); }
+#endif
+  pushByte(value);
  164:	8c 2f       	mov	r24, r28
  166:	90 e0       	ldi	r25, 0x00	; 0
  168:	0e 94 6e 00 	call	0xdc	; 0xdc <pushByte>
  16c:	04 c0       	rjmp	.+8      	; 0x176 <lcd_putchar+0x4e>
+      nl_seen = 1;
+  }
+  else if (c != '\r') {
+      dataWrite(c);
+  } else {	
+      commandWrite(CMD_DDADDR(64));
  16e:	80 ec       	ldi	r24, 0xC0	; 192
  170:	90 e0       	ldi	r25, 0x00	; 0
  172:	0e 94 89 00 	call	0x112	; 0x112 <commandWrite>
+  }
+  return 0;
+}
  176:	80 e0       	ldi	r24, 0x00	; 0
  178:	90 e0       	ldi	r25, 0x00	; 0
  17a:	cf 91       	pop	r28
@@ -230,13 +324,30 @@ Disassembly of section .text:
  18a:	e1 f7       	brne	.-8      	; 0x184 <init_lcd+0x6>
  18c:	00 c0       	rjmp	.+0      	; 0x18e <init_lcd+0x10>
  18e:	00 00       	nop
+// initiatize lcd - cursor and blink settings could be overriden after initializing
+void init_lcd() {
+//Power-up delay
+	_delay_ms(100);
+	
+  pinMode(EN_PORT, EN_BIT, OUTPUT);
  190:	39 9a       	sbi	0x07, 1	; 7
+  pinMode(RS_PORT, RS_BIT, OUTPUT);
  192:	38 9a       	sbi	0x07, 0	; 7
+#if USING_RW != 0
+  if (USING_RW) { pinMode(RW_PORT, RW_BIT, OUTPUT); }
+#endif
+  pinMode(DB0_PORT, DB0_BIT,OUTPUT);
  194:	3a 9a       	sbi	0x07, 2	; 7
+  pinMode(DB1_PORT, DB1_BIT,OUTPUT);
  196:	3b 9a       	sbi	0x07, 3	; 7
+  pinMode(DB2_PORT, DB2_BIT,OUTPUT);
  198:	3c 9a       	sbi	0x07, 4	; 7
+  pinMode(DB3_PORT, DB3_BIT,OUTPUT);
  19a:	3d 9a       	sbi	0x07, 5	; 7
+  digitalWrite(EN_PORT, EN_BIT, 1);
  19c:	41 9a       	sbi	0x08, 1	; 8
+	
+  commandWriteNibble(lcd_FunctionReset);	// first part of reset sequence
  19e:	80 e3       	ldi	r24, 0x30	; 48
  1a0:	90 e0       	ldi	r25, 0x00	; 0
  1a2:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -246,6 +357,8 @@ Disassembly of section .text:
  1ac:	f1 f7       	brne	.-4      	; 0x1aa <init_lcd+0x2c>
  1ae:	00 c0       	rjmp	.+0      	; 0x1b0 <init_lcd+0x32>
  1b0:	00 00       	nop
+  _delay_ms(10);
+  commandWriteNibble(lcd_FunctionReset);	// second part of reset sequence
  1b2:	80 e3       	ldi	r24, 0x30	; 48
  1b4:	90 e0       	ldi	r25, 0x00	; 0
  1b6:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -261,6 +374,8 @@ Disassembly of section .text:
  1c0:	f1 f7       	brne	.-4      	; 0x1be <init_lcd+0x40>
  1c2:	00 c0       	rjmp	.+0      	; 0x1c4 <init_lcd+0x46>
  1c4:	00 00       	nop
+  _delay_us(200);
+  commandWriteNibble(lcd_FunctionReset);	// third part of reset sequence
  1c6:	80 e3       	ldi	r24, 0x30	; 48
  1c8:	90 e0       	ldi	r25, 0x00	; 0
  1ca:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -270,6 +385,9 @@ Disassembly of section .text:
  1d4:	f1 f7       	brne	.-4      	; 0x1d2 <init_lcd+0x54>
  1d6:	00 c0       	rjmp	.+0      	; 0x1d8 <init_lcd+0x5a>
  1d8:	00 00       	nop
+  _delay_us(200);							// this delay is omitted in the data sheet
+	
+	commandWriteNibble(lcd_Home);
  1da:	82 e0       	ldi	r24, 0x02	; 2
  1dc:	90 e0       	ldi	r25, 0x00	; 0
  1de:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -285,6 +403,8 @@ Disassembly of section .text:
  1e8:	f1 f7       	brne	.-4      	; 0x1e6 <init_lcd+0x68>
  1ea:	00 c0       	rjmp	.+0      	; 0x1ec <init_lcd+0x6e>
  1ec:	00 00       	nop
+	_delay_ms(1);
+	commandWriteNibble(lcd_Home);
  1ee:	82 e0       	ldi	r24, 0x02	; 2
  1f0:	90 e0       	ldi	r25, 0x00	; 0
  1f2:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -294,6 +414,8 @@ Disassembly of section .text:
  1fc:	f1 f7       	brne	.-4      	; 0x1fa <init_lcd+0x7c>
  1fe:	00 c0       	rjmp	.+0      	; 0x200 <init_lcd+0x82>
  200:	00 00       	nop
+	_delay_ms(1);
+	commandWriteNibble(lcd_DisplayOn);
  202:	8c e0       	ldi	r24, 0x0C	; 12
  204:	90 e0       	ldi	r25, 0x00	; 0
  206:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -309,6 +431,8 @@ Disassembly of section .text:
  210:	f1 f7       	brne	.-4      	; 0x20e <init_lcd+0x90>
  212:	00 c0       	rjmp	.+0      	; 0x214 <init_lcd+0x96>
  214:	00 00       	nop
+	_delay_us(80);
+	commandWriteNibble(lcd_DisplayOff);
  216:	88 e0       	ldi	r24, 0x08	; 8
  218:	90 e0       	ldi	r25, 0x00	; 0
  21a:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -318,6 +442,8 @@ Disassembly of section .text:
  224:	f1 f7       	brne	.-4      	; 0x222 <init_lcd+0xa4>
  226:	00 c0       	rjmp	.+0      	; 0x228 <init_lcd+0xaa>
  228:	00 00       	nop
+	_delay_us(80);
+	commandWriteNibble(0x00);
  22a:	80 e0       	ldi	r24, 0x00	; 0
  22c:	90 e0       	ldi	r25, 0x00	; 0
  22e:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -333,6 +459,8 @@ Disassembly of section .text:
  238:	f1 f7       	brne	.-4      	; 0x236 <init_lcd+0xb8>
  23a:	00 c0       	rjmp	.+0      	; 0x23c <init_lcd+0xbe>
  23c:	00 00       	nop
+	_delay_ms(1);
+	commandWriteNibble(lcd_Clear);
  23e:	81 e0       	ldi	r24, 0x01	; 1
  240:	90 e0       	ldi	r25, 0x00	; 0
  242:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -342,6 +470,8 @@ Disassembly of section .text:
  24c:	f1 f7       	brne	.-4      	; 0x24a <init_lcd+0xcc>
  24e:	00 c0       	rjmp	.+0      	; 0x250 <init_lcd+0xd2>
  250:	00 00       	nop
+	_delay_ms(4);
+	commandWriteNibble(0x00);
  252:	80 e0       	ldi	r24, 0x00	; 0
  254:	90 e0       	ldi	r25, 0x00	; 0
  256:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -351,6 +481,8 @@ Disassembly of section .text:
  260:	f1 f7       	brne	.-4      	; 0x25e <init_lcd+0xe0>
  262:	00 c0       	rjmp	.+0      	; 0x264 <init_lcd+0xe6>
  264:	00 00       	nop
+	_delay_ms(1);
+	commandWriteNibble(lcd_EntryMode);
  266:	86 e0       	ldi	r24, 0x06	; 6
  268:	90 e0       	ldi	r25, 0x00	; 0
  26a:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
@@ -366,12 +498,24 @@ Disassembly of section .text:
  274:	f1 f7       	brne	.-4      	; 0x272 <init_lcd+0xf4>
  276:	00 c0       	rjmp	.+0      	; 0x278 <init_lcd+0xfa>
  278:	00 00       	nop
+	_delay_us(80);
+
+  // needed by the LCDs controller
+  //this being 2 sets up 4-bit mode.
+  commandWriteNibble(lcd_Home);
  27a:	82 e0       	ldi	r24, 0x02	; 2
  27c:	90 e0       	ldi	r25, 0x00	; 0
  27e:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
+  commandWriteNibble(lcd_Home);
  282:	82 e0       	ldi	r24, 0x02	; 2
  284:	90 e0       	ldi	r25, 0x00	; 0
  286:	0e 94 8d 00 	call	0x11a	; 0x11a <commandWriteNibble>
+  //X=don't care
+
+  int num_lines_ptn = (g_num_lines - 1) << 3;
+  int dot_format_ptn = 0x00;      //5x7 dots.  0x04 is 5x10
+
+  commandWrite(num_lines_ptn | dot_format_ptn | 0x20);
  28a:	88 e2       	ldi	r24, 0x28	; 40
  28c:	90 e0       	ldi	r25, 0x00	; 0
  28e:	0e 94 89 00 	call	0x112	; 0x112 <commandWrite>
@@ -381,6 +525,12 @@ Disassembly of section .text:
  298:	f1 f7       	brne	.-4      	; 0x296 <init_lcd+0x118>
  29a:	00 c0       	rjmp	.+0      	; 0x29c <init_lcd+0x11e>
  29c:	00 00       	nop
+  //The rest of the init is not specific to 4-bit mode.
+  //NOTE: we're writing full bytes now, not nibbles.
+
+  // display control:
+  // turn display on, cursor off, no blinking
+  commandWrite(lcd_DisplayOn);
  29e:	8c e0       	ldi	r24, 0x0C	; 12
  2a0:	90 e0       	ldi	r25, 0x00	; 0
  2a2:	0e 94 89 00 	call	0x112	; 0x112 <commandWrite>
@@ -390,6 +540,10 @@ Disassembly of section .text:
  2ac:	f1 f7       	brne	.-4      	; 0x2aa <init_lcd+0x12c>
  2ae:	00 c0       	rjmp	.+0      	; 0x2b0 <init_lcd+0x132>
  2b0:	00 00       	nop
+  _delay_us(60);
+
+  //clear display
+  commandWrite(lcd_Clear);
  2b2:	81 e0       	ldi	r24, 0x01	; 1
  2b4:	90 e0       	ldi	r25, 0x00	; 0
  2b6:	0e 94 89 00 	call	0x112	; 0x112 <commandWrite>
@@ -405,6 +559,11 @@ Disassembly of section .text:
  2c0:	f1 f7       	brne	.-4      	; 0x2be <init_lcd+0x140>
  2c2:	00 c0       	rjmp	.+0      	; 0x2c4 <init_lcd+0x146>
  2c4:	00 00       	nop
+  _delay_ms(3);
+
+  // entry mode set: 06
+  // increment automatically, display shift, entire shift off
+  commandWrite(lcd_EntryMode);
  2c6:	86 e0       	ldi	r24, 0x06	; 6
  2c8:	90 e0       	ldi	r25, 0x00	; 0
  2ca:	0e 94 89 00 	call	0x112	; 0x112 <commandWrite>
@@ -426,18 +585,37 @@ Disassembly of section .text:
  2e8:	e1 f7       	brne	.-8      	; 0x2e2 <main+0x6>
  2ea:	00 c0       	rjmp	.+0      	; 0x2ec <main+0x10>
  2ec:	00 00       	nop
+	// Ladezeit für das Aufstarten der Spannungsversorguung
+	_delay_ms(500);
+
+	// Einstellungen für Bildschirm
+	static FILE fd_lcd = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
+	stdout = &fd_lcd;
  2ee:	80 e0       	ldi	r24, 0x00	; 0
  2f0:	91 e0       	ldi	r25, 0x01	; 1
  2f2:	90 93 13 01 	sts	0x0113, r25
  2f6:	80 93 12 01 	sts	0x0112, r24
+	
+	// Peripheriegeräte laden
+	initIO();
+	init_lcd();
  2fa:	0e 94 bf 00 	call	0x17e	; 0x17e <init_lcd>
+	//initSPI();
+	
+	TCCR0A = 1<<CS01;			//divide by 8 * 256
  2fe:	82 e0       	ldi	r24, 0x02	; 2
  300:	84 bd       	out	0x24, r24	; 36
+	TIMSK0 = 1<<TOIE0;			//enable timer interrupt
  302:	81 e0       	ldi	r24, 0x01	; 1
  304:	80 93 6e 00 	sts	0x006E, r24
+
+	DDRB = 0xFF;
  308:	8f ef       	ldi	r24, 0xFF	; 255
  30a:	84 b9       	out	0x04, r24	; 4
+	sei();
  30c:	78 94       	sei
+	for(;;)				// main loop
+	PORTB = enc_delta;
  30e:	80 91 0f 01 	lds	r24, 0x010F
  312:	85 b9       	out	0x05, r24	; 5
  314:	fc cf       	rjmp	.-8      	; 0x30e <main+0x32>
