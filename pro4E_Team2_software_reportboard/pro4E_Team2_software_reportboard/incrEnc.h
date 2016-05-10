@@ -30,3 +30,11 @@ static void check_button(void);
 void encodeFunc();
 /* For encoding the encoder
 */
+
+void controlLED();
+/* LEDs ansteuertn
+*/
+
+void initISR();
+/* Timeinterrupt
+*/

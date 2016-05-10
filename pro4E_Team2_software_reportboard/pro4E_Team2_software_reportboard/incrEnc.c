@@ -83,7 +83,7 @@ char encodeFunc()
 	
 void controlLED()
 {
-	switch(enc_delta){
+	switch(enc_delta){  //enc.Var. zw. -127...128 zeigt position an
 	case 1:
 		1<<EncPIN_LED1;
 		break;
@@ -106,26 +106,26 @@ void controlLED()
 	default:
 		if(enc_delta%3==0)
 		{
-			if(enc_delta>0)
+			if(enc_delta>0)  // im uhrzeigersinn
 			{
-			goto case 3;
+			goto case 3;     //alle mit leuchtendem LED3
 			}
-			else
+			else             // im gegenuhrzeigersinn
 			{
-				goto case -3;
+			goto case -3;    //alle mit leuchtendem LED1
 			}
 		}
 		if((enc_delta+1)%3==0)
 		{
-			goto case 2;
+			goto case 2;      // auf beide seite leuchtet LED2
 		}
 		if((enc_delta-1)%3==0)
 		{
-			if(enc_delta>0)
+			if(enc_delta>0)    //im uhrzeigersinn
 			{
-				goto case 1;
+				goto case 1;   //alle mit leuchtendem LED1
 			}
-			else
+			else               // im gegenuhrzeigersinn
 			{
 				goto case -1;
 			}
@@ -133,4 +133,17 @@ void controlLED()
 		break;
 	}
 }
+}
+
+void initISR ()
+{
+	TCCR0B = 0b010; // Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
+	TIMSK0 = (1 << TOIE0);	//enable timer interrupt
+	sei();
+}
+
+ISR (TIMER0_OVF_vect)
+{
+	button = check_button();
+	enc_delta = encodeFunc();
 }
