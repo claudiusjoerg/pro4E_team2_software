@@ -52,14 +52,7 @@ int main(void)
 	_delay_ms(100);
 
 	while(1)
-	{
-		if (button == 1)
-		{
-			PORTD |= (1<<0);
-		}else{
-			PORTD |= (0<<0);
-		}
-		
+	{		
 		enc_delta;
 		
 		displayAktualisieren();

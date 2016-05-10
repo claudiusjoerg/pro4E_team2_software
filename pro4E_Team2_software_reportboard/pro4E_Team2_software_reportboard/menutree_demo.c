@@ -8,7 +8,6 @@
 #include <util/delay.h>
 #include <stdio.h>
 
-#include "../lcd_keypad_m2560/lcd_keypad_m2560.h"
 #include "board.h"
 #include "menutree.h"
 
@@ -16,15 +15,17 @@
 
 //menu text and and prototype function for example menu (implemented below)
 
-void namePowerPlant(void);  		
+void nameFunc(void);  		
 void numberModules(void);			
 void statusFunc(void);
 void aboutFunc(void);
+void editModule(void);
+void voltageSys(void);
+void powerSys(void);
+void notesSys(void);
+void backMain(void);
+		
 void MF_LoadmenuMain(void);	
-void MF_LEDon(void); 		
-void MF_LEDoff(void);		
-void MF_LEDtoggle(void);		
-void MF_LEDdisp(void);
 
 static char read_buttons(void);
 
@@ -33,114 +34,101 @@ static char read_buttons(void);
 //Definition of the menu tree by declaring and initializing array variables of type MenuItem_T...
 
 struct MenuItem_T MainMenu[] = { 
-	{"Name of power plant",		 namePowerPlant},
-	{"Number of modules",	 numberModules},
-	{"Power Plant Status",	 statusFunc},
-	{"About",	 aboutFunc},
+	{"Name of power plant",		nameFunc},
+	{"Number of modules",		numberModules},
+	{"Power Plant Status",		statusFunc},
+	{"About",					aboutFunc}
 };
 
-struct MenuItem_T  SubMenu[] = { 
-	{"set LED on", 		MF_LEDon},
-	{"set LED off", 	MF_LEDoff},
-	{"toggle LED",		MF_LEDtoggle},
-	{"Disp LED value",	MF_LEDdisp},
-	{"Back to Mainmenu",  MF_LoadmenuMain}
+struct MenuItem_T  SubMenuName[] = {
+	{"Edit Name",				editName},
+	{"Back to Mainmenu",		backMain}
+};
+
+struct MenuItem_T  SubMenuNumber[] = {
+	{"Edit number of modules",	editModule},
+	{"Back to Mainmenu",		backMain}
+};
+
+struct MenuItem_T  SubMenuStatus[] = {
+	{"Voltage of system",		voltageSys},
+	{"Power of system",			powerSys},
+	{"Notifications",			notesSys},
+	{"Back to Mainmenu",		backMain}
+};
+
+struct MenuItem_T  SubMenuAbout[] = {
+	{"Back to Mainmenu",		backMain}
 };
 
 //------------------------------------------------------------------------------
-
-//Implementation of the examples menu functions...
 //Rem: in a real application, implement this and function prototypes in different module(s)
 
-//Menu for naming power plant
-void namePowerPlant(void)
+// Menu for naming power plant
+void nameFunc(void)
+{
+	LoadMenu(SubMenuName);
+}
+
+// Edit number of modules
+void numberModules(void)
+{
+	LoadMenu(SubMenuNumber);
+} 
+
+// Watch status about specifications
+void statusFunc(void)
+{
+	LoadMenu(SubMenuStatus);
+}
+	
+// Infos about product
+void aboutFunc(void)
+{
+	LoadMenu(SubMenuAbout);
+}
+
+// Edit name of power plant
+void editName(void)
+{
+	
+}
+
+// Changes numbers of modules
+void editModule(void)
 {}
 
-//Edit amount of modules
-void numberModules(void)
-{} 
+// Shows average voltage of power plant
+void voltageSys(void)
+{}
 
-//To watch status about specifications
-void statusFunc(void)
+// Shows average power of power plant
+void powerSys(void)
 {}
 	
-//To watch status about specifications
-void aboutFunc(void)
+// Shows last notifications
+void notesSys(void)
 {}
 
-// change to submenu LED
-void MF_LoadmenuLED(void) {
-	LoadMenu(SubMenu); 
-}
-
-// change back to main menu
-void MF_LoadmenuMain(void) {
-	LoadMenu(MainMenu); 
-}
-
-// set LED on
-void MF_LEDon(void) {
-	LED |= LED_MASK; 
-}
-
-// set LED off
-void MF_LEDoff(void) { 
-	LED &= ~LED_MASK; 
-}
-
-// toggle LED
-void MF_LEDtoggle(void) { 
-	LED ^= LED_MASK; 
-}
-
-// show LED value and return from Submenu
-void MF_LEDdisp(void) { 
-	printf("\nLED is %s", (LED & LED_MASK) ? "on" : "off"); 
-	_delay_ms(1000); 
-}
-
-//------------------------------------------------------------------------------
-
-int main()
+// Return to main menu
+void backMain(void)
 {
-	static FILE lcd_fd = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
-    stdout = &lcd_fd;	//Standardausgabe auf obigen Stream setzen
-	init_lcd();
-
-	// initialisation of example hardware used
-	LED_DDR = LED_MASK;	//set LED as output
-	BEEPER_DDR |= BEEPER_MASK;	//set Beeper as output
-	BUTTON_PORT |= BUTTONS_ALL;
-	DDRC = 0xff;
-
-	printf("MenuTreeDemo\rhit key to start");
-	while (!read_buttons()) ;
-
 	LoadMenu(MainMenu);
-
-	while (1) 
-	{
-		int buttons;
-		buttons = read_buttons();
-		if (buttons) {
-			ProcessMenu(buttons);
-		}
-	}
-
 }
 
 //------------------------------------------------------------------------------
 
 
-static char read_buttons(void)
+printf("MenuTreeDemo\rhit key to start");
+while (!read_buttons()) ;
+
+LoadMenu(MainMenu);
+
+while (1) 
 {
-	static char buttons_old;	//static -> old button state since last call
-	char buttons_now, buttons_new;
-	buttons_now = ~BUTTON_PINS & BUTTONS_ALL; 	// read actual button state (buttons are inverted)
-	buttons_new = ~buttons_old & buttons_now;	//additions since last update
-	if (buttons_old != buttons_now) {
-		buttons_old = buttons_now; //save for next update
-		_delay_ms(10);			// debounce on key change
+	int buttons;
+	buttons = read_buttons();
+	if (buttons) {
+		ProcessMenu(buttons);
 	}
-	return buttons_new;
 }

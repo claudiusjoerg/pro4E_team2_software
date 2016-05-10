@@ -40,6 +40,8 @@ C_SRCS +=  \
 ../incrEnc.c \
 ../lcd_UNO.c \
 ../main.c \
+../menutree.c \
+../menutree_demo.c \
 ../SPI.c
 
 
@@ -53,24 +55,32 @@ OBJS +=  \
 incrEnc.o \
 lcd_UNO.o \
 main.o \
+menutree.o \
+menutree_demo.o \
 SPI.o
 
 OBJS_AS_ARGS +=  \
 incrEnc.o \
 lcd_UNO.o \
 main.o \
+menutree.o \
+menutree_demo.o \
 SPI.o
 
 C_DEPS +=  \
 incrEnc.d \
 lcd_UNO.d \
 main.d \
+menutree.d \
+menutree_demo.d \
 SPI.d
 
 C_DEPS_AS_ARGS +=  \
 incrEnc.d \
 lcd_UNO.d \
 main.d \
+menutree.d \
+menutree_demo.d \
 SPI.d
 
 OUTPUT_FILE_PATH +=pro4E_Team2_software_reportboard.elf
@@ -87,6 +97,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 
