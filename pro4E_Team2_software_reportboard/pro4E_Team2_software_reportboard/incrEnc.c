@@ -17,14 +17,17 @@
 #define EncPort_A PORTD
 #define EncPort_B PORTD
 #define EncPort_BT PORTD
+
 #define EncPIN_A 6
 #define EncPIN_B 5
 #define EncPIN_BT 4
 #define EncPIN_LED_BT 0
-#define EncPIN_LED_3 1
-#define EncPIN_LED_2 2
-#define EncPIN_LED_1 3
+#define EncPIN_LED3 1
+#define EncPIN_LED2 2
+#define EncPIN_LED1 3
+
 #define EncDDR DDRD
+
 #define BUTTON (1<<2)
 #define MODE (1<<4)
 #define CNT_MAX 10
@@ -39,7 +42,7 @@ volatile int button = 0;
 
 void init_encoder()
 {
-	EncDDR |= (0<<EncPIN_A)|(0<<EncPIN_B)|(0<<EncPIN_BT)|;
+	EncDDR |= (0<<EncPIN_A)|(0<<EncPIN_B)|(0<<EncPIN_BT)|(1<<EncPIN_LED_BT)|(1<<EncPIN_LED3)|(1<<EncPIN_LED2)|(1<<EncPIN_LED1);   //intput 0, output 1
 }
 
 static int check_button(void)
@@ -77,4 +80,52 @@ char encodeFunc()
 
 		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
 	}
+	
+void controlLED(value_distance)
+{
+	/*if(enc_delta>0){  //sind im uhrzeigersinn
+		int i=EncPIN_LED1;
+		for(int j=0; j<=value_distance; j++)*/
+
+	switch(value_distance){
+	case 1:
+		if(enc_delta>0){
+			1<<EncPIN_LED1;
+		}
+		else
+		{
+			1<<EncPIN_LED3;
+		}
+		break;
+		
+	case 2:
+		1<<EncPIN_LED2;
+		break;
+		
+	case 3:
+		if(enc_delta>0){
+			1<<EncPIN_LED3;
+		}
+		else
+		{
+			1<<EncPIN_LED1;
+		}
+		break;
+	
+	default:
+		if(value_distance%3==0)
+		{
+			goto case 3;
+		}
+		if((value_distance+1)%3==0)
+		{
+			goto case 2;
+		}
+		if((value_distance-1)%3==0)
+		{
+			goto case 1;
+		}
+		break;
+	}
+}
 }
