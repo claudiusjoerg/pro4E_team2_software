@@ -12,7 +12,6 @@
 #include "menutree.h"
 
 //------------------------------------------------------------------------------
-
 //menu text and and prototype function for example menu (implemented below)
 
 void nameFunc(void);  		
@@ -34,31 +33,31 @@ static char read_buttons(void);
 //Definition of the menu tree by declaring and initializing array variables of type MenuItem_T...
 
 struct MenuItem_T MainMenu[] = { 
-	{"Name of power plant",		nameFunc},
-	{"Number of modules",		numberModules},
-	{"Power Plant Status",		statusFunc},
-	{"About",					aboutFunc}
+	{"Name of power plant",				nameFunc},
+	{"Number of modules",				numberModules},
+	{"Power Plant Status",				statusFunc},
+	{"About",							aboutFunc}
 };
 
 struct MenuItem_T  SubMenuName[] = {
-	{"Edit Name",				editName},
-	{"Back to Mainmenu",		backMain}
+	{"Edit Name",						editName},
+	{"Save and back to mainmenu",		backMain}
 };
 
 struct MenuItem_T  SubMenuNumber[] = {
-	{"Edit number of modules",	editModule},
-	{"Back to Mainmenu",		backMain}
+	{"Edit number of modules",			editModule},
+	{"Save and back to mainmenu",		backMain}
 };
 
 struct MenuItem_T  SubMenuStatus[] = {
-	{"Voltage of system",		voltageSys},
-	{"Power of system",			powerSys},
-	{"Notifications",			notesSys},
-	{"Back to Mainmenu",		backMain}
+	{"Voltage of system",				voltageSys},
+	{"Power of system",					powerSys},
+	{"Notifications",					notesSys},
+	{"Back to Mainmenu",				backMain}
 };
 
 struct MenuItem_T  SubMenuAbout[] = {
-	{"Back to Mainmenu",		backMain}
+	{"Back to Mainmenu",				backMain}
 };
 
 //------------------------------------------------------------------------------
@@ -91,7 +90,12 @@ void aboutFunc(void)
 // Edit name of power plant
 void editName(void)
 {
-	
+	lcd_cursor_addr(LINE1);
+	printf("Edit the name");
+	lcd_cursor_addr(LINE2);
+	// printf("Tool zum eingeben des Namens"); - durch drücken weiter zum nächsten Buchstaben, 8 Zeichen - nach 8x drücken bei "Save and back to mainmenu"
+	lcd_cursor_addr(LINE4);
+	LoadMenu(MainMenu);
 }
 
 // Changes numbers of modules
@@ -114,21 +118,4 @@ void notesSys(void)
 void backMain(void)
 {
 	LoadMenu(MainMenu);
-}
-
-//------------------------------------------------------------------------------
-
-
-printf("MenuTreeDemo\rhit key to start");
-while (!read_buttons()) ;
-
-LoadMenu(MainMenu);
-
-while (1) 
-{
-	int buttons;
-	buttons = read_buttons();
-	if (buttons) {
-		ProcessMenu(buttons);
-	}
 }

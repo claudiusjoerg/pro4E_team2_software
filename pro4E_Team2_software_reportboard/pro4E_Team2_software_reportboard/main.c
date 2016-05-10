@@ -39,35 +39,39 @@ int main(void)
 	// Ladezeit für das Aufstarten der Spannungsversorguung
 	_delay_ms(500);
 
-	// Einstellungen für Bildschirm
+	// Einstellung für Bildschirm
 	static FILE fd_lcd = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
 	stdout = &fd_lcd;
 	
-	// Peripheriegeräte laden
+	// Peripheriegeräte und Funktionen laden
 	initIO();
 	init_lcd();
 	init_encoder();
-	initISR();
+	
+	while (!read_buttons());
+	LoadMenu(MainMenu);
 		
 	_delay_ms(100);
 
 	while(1)
-	{		
-		enc_delta;
+	{
+		//displayAktualisieren();
 		
-		displayAktualisieren();
+		int buttons;
+		buttons = check_button();
+		if (buttons) {
+			ProcessMenu(buttons);
+		}
 		
 		_delay_ms(1000);
 	}
 	
 	return 0;
 }
-
+/*
 void displayAktualisieren()
 {
-	// Zeile für Spannung
-	lcd_cursor_addr(LINE1);
-	printf("Zeile 1");
+
 	// Zeile für Strom
 	lcd_cursor_addr(LINE2);
 	printf("Zeile 2");
@@ -78,16 +82,4 @@ void displayAktualisieren()
 	lcd_cursor_addr(LINE4);
 	printf("Zeile 4\n");
 }
-
-void initISR ()
-{
-	TCCR0B = 0b010; // Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
-	TIMSK0 = (1 << TOIE0);	//enable timer interrupt
-	sei();	
-}
-
-ISR (TIMER0_OVF_vect)
-{
-	button = check_button();
-	enc_delta = encodeFunc();
-}
+*/
