@@ -23,6 +23,7 @@ volatile int8_t enc_delta;
 //volatile char enc_delta;		// -128 ... 127
 volatile int button = 0;
 static int8_t last;
+volatile int8_t menu_Max;
 
 
 void initIO(void)

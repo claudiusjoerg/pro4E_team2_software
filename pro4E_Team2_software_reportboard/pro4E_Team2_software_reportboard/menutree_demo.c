@@ -33,7 +33,6 @@ static char read_buttons(void);
 //Definition of the menu tree by declaring and initializing array variables of type MenuItem_T...
 
 struct MenuItem_T MainMenu[] = { 
-
 	{"Name of power plant",				nameFunc},
 	{"Number of modules",				numberModules},
 	{"Power Plant Status",				statusFunc},
@@ -101,15 +100,23 @@ void editName(void)
 
 // Changes numbers of modules
 void editModule(void)
-{}
+{
+	printf("Number of Modules : ");
+}
 
 // Shows average voltage of power plant
 void voltageSys(void)
-{}
+
+{
+	printf("Voltage of the system :");
+}
 
 // Shows average power of power plant
 void powerSys(void)
-{}
+
+{
+	printf("power of the plant :");
+}
 	
 // Shows last notifications
 void notesSys(void)

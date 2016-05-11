@@ -32,7 +32,20 @@ void ProcessMenu(char button)
 	switch (button) {
 
 	case BUTTON_MENU:
-		activeMenuItem = (activeMenuItem + 1) % nrMenuItems; //proceed to next menu item
+		if (enc_delta < 0)
+		{
+			if (-enc_delta > activeMenuItem)
+			{
+				activeMenuItem = 0;
+			}else activeMenuItem +=enc_delta;
+		}
+		else{
+			if (enc_delta >(menu_Max-activeMenuItem))
+			{activeMenuItem = menu_Max;
+			}
+			 else activeMenuItem +=enc_delta;
+		}
+		//activeMenuItem = (activeMenuItem + 1) % nrMenuItems; //proceed to next menu item
 		break;
 
 	case BUTTON_EXECUTE:
