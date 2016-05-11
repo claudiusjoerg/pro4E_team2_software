@@ -31,7 +31,7 @@ void ProcessMenu(char button)
 {
 	switch (button) {
 
-	case BUTTON_MENU:
+	case ENC_MENU:
 		activeMenuItem = (activeMenuItem + 1) % nrMenuItems; //proceed to next menu item
 		break;
 

@@ -10,6 +10,7 @@
 
 #include "board.h"
 #include "menutree.h"
+#include "lcd_UNO.h"
 
 //------------------------------------------------------------------------------
 //menu text and and prototype function for example menu (implemented below)
@@ -23,10 +24,11 @@ void voltageSys(void);
 void powerSys(void);
 void notesSys(void);
 void backMain(void);
+void editName(void);
 		
 void MF_LoadmenuMain(void);	
 
-static char read_buttons(void);
+//static char read_buttons(void);
 
 //------------------------------------------------------------------------------
 
