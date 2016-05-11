@@ -29,16 +29,18 @@
 #define EncDDR DDRD
 
 #define BUTTON (1<<4)
-#define MODE (1<<4)
+/*#define MODE (1<<4)
 #define CNT_MAX 10
 #define CNT_MIN 0
-#define AUTOREPEAT_SET 50
+#define AUTOREPEAT_SET 50*/
 
 #define PHASE_A	(EncPort_A & 1<<EncPIN_A)	// PINC.0
 #define PHASE_B (EncPort_B & 1<<EncPIN_B)	// PINC.1
 
-char enc_delta;		// -128 ... 127
+volatile int8_t enc_delta;
+//volatile char enc_delta;		// -128 ... 127
 volatile int button = 0;
+static int8_t last;
 
 void init_encoder()
 {
@@ -53,7 +55,7 @@ static void check_button(void)//entpreller
 	button |= ~old_button & current_button & BUTTONMASK;//falls zustand gewechselt: button == 1 	
 }
 
-void encodeFunc()
+/*void encodeFunc()
 {
 	static char enc_last = 0x01;
 	char i = 0;
@@ -71,6 +73,22 @@ void encodeFunc()
 
 		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
 	}
+}*/
+
+void encode_init( void )
+{
+	int8_t new;
+	
+	new = 0;
+	if( PHASE_A )
+	new = 3;
+	if( PHASE_B )
+	new ^= 1;                   // convert gray to binary
+	last = new;                   // power on state
+	enc_delta = 0;
+	TCCR0 = 1<<WGM01^1<<CS01^1<<CS00;     // CTC, XTAL / 64
+	OCR0 = (uint8_t)(XTAL / 64.0 * 1e-3 - 0.5);   // 1ms
+	TIMSK |= 1<<OCIE0;
 }
 	
 void controlLED()
@@ -134,7 +152,7 @@ void controlLED()
 }
 
 
-void initISR ()
+/*void initISR ()
 {
 	TCCR0B = 0b010; // Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
 	TIMSK0 = (1 << TOIE0);	//enable timer interrupt
@@ -145,4 +163,31 @@ ISR (TIMER0_OVF_vect)
 {
 	button;
 	enc_delta;
+}*/
+
+ISR( TIMER0_COMP_vect )             // 1ms for manual movement
+{
+	int8_t new, diff;
+	
+	new = 0;
+	if( PHASE_A )
+	new = 3;
+	if( PHASE_B )
+	new ^= 1;                   // convert gray to binary
+	diff = last - new;                // difference last - new
+	if( diff & 1 ){               // bit 0 = value (1)
+		last = new;                 // store new as next last
+		enc_delta += (diff & 2) - 1;        // bit 1 = direction (+/-)
+	}
+}
+
+int8_t encode_read2( void )         // read two step encoders
+{
+	int8_t val;
+	
+	cli();
+	val = enc_delta;
+	enc_delta = val & 1;
+	sei();
+	return val >> 1;
 }
