@@ -236,9 +236,9 @@ void init_Tranceiver(){
  144:	88 b9       	out	0x08, r24	; 8
 	
 	//Datenpin aktivieren
-	PORTD = 0b00000010; //TxD = 1
+	DDRD = 0b00000010; //TxD = 1
  146:	82 e0       	ldi	r24, 0x02	; 2
- 148:	8b b9       	out	0x0b, r24	; 11
+ 148:	8a b9       	out	0x0a, r24	; 10
  14a:	08 95       	ret
 
 0000014c <uebertragung_uart>:
