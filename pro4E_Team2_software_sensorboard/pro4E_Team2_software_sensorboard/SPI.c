@@ -1,8 +1,6 @@
-#include <avr/io.h>
-#include <util/delay.h>
-
 
 #include "SPI.h"
+
 
 void initSPI(){
 	DDRB = (1<<PORTB3)|(1<<PORTB5)|(1<<PORTB2);//0b011100;
@@ -16,7 +14,7 @@ void initSPI(){
 
 char ADC_receive(){
 	//transmit
-	char Dout= 0b1101;				//Startbit + Config die über SPI gesendet werden müssen
+	volatile unsigned char Dout= 0b1101;				//Startbit + Config die über SPI gesendet werden müssen
 	
 	// Start transmission (MOSI)
 	SPDR = Dout;
