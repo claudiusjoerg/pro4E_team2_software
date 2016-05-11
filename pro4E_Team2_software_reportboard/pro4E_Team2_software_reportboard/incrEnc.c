@@ -37,10 +37,6 @@
 #define PHASE_A	(EncPort_A & 1<<EncPIN_A)	// PINC.0
 #define PHASE_B (EncPort_B & 1<<EncPIN_B)	// PINC.1
 
-volatile int8_t enc_delta;
-//volatile char enc_delta;		// -128 ... 127
-volatile int button = 0;
-static int8_t last;
 
 void init_encoder()
 {
@@ -55,7 +51,7 @@ static void check_button(void)//entpreller
 	button |= ~old_button & current_button & BUTTONMASK;//falls zustand gewechselt: button == 1 	
 }
 
-/*void encodeFunc()
+void encodeFunc()
 {
 	static char enc_last = 0x01;
 	char i = 0;
@@ -73,9 +69,9 @@ static void check_button(void)//entpreller
 
 		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
 	}
-}*/
+}
 
-void encode_init( void )
+/*void encode_init( void )
 {
 	int8_t new;
 	
@@ -89,77 +85,19 @@ void encode_init( void )
 	TCCR0 = 1<<WGM01^1<<CS01^1<<CS00;     // CTC, XTAL / 64
 	OCR0 = (uint8_t)(XTAL / 64.0 * 1e-3 - 0.5);   // 1ms
 	TIMSK |= 1<<OCIE0;
-}
+}*/
 	
-void controlLED()
-{
-	/*Knopffunktion*/
-	if(button==1)      //button gedrückt
-	{
-		1<<EncPIN_BT;  //button-LED leuchtet nun
-	}
-	
-	/*Drehfunktion*/
-	switch(enc_delta){  //enc.Var. zw. -127...128 zeigt position an
-	case 1:
-		1<<EncPIN_LED1;
-		break;
-	case -1:
-		1<<EncPIN_LED3;
-		break;
-	case 2:
-		1<<EncPIN_LED2;
-		break;
-	case -2:
-		1<<EncPIN_LED2;
-		break;
-	case 3:
-		1<<EncPIN_LED3;
-		break;
-	case -3:
-		1<<EncPIN_LED1;
-		break;
-	
-	default:
-		if(enc_delta%3==0)
-		{
-			if(enc_delta>0)  // im uhrzeigersinn
-			{
-			1<<EncPIN_LED3;     //alle mit leuchtendem LED3, go to case 3
-			}
-			else             // im gegenuhrzeigersinn
-			{
-			1<<EncPIN_LED1;    //alle mit leuchtendem LED1, go to case-3
-			}
-		}
-		if((enc_delta+1)%3==0)
-		{
-			1<<EncPIN_LED2;      // auf beide seite leuchtet LED2, go to case 2
-		}
-		if((enc_delta-1)%3==0)
-		{
-			if(enc_delta>0)    //im uhrzeigersinn
-			{
-				1<<EncPIN_LED1;   //alle mit leuchtendem LED1, go to case 1
-			}
-			else               // im gegenuhrzeigersinn
-			{
-				1<<EncPIN_LED3; // go to case -1
-			}
-		}
-		break;
-	}
-}
 
 
-/*void initISR ()
+
+void initISR ()
 {
 	TCCR0B = 0b010; // Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
 	TIMSK0 = (1 << TOIE0);	//enable timer interrupt
 	sei();
 }
 
-ISR (TIMER0_OVF_vect)
+/*ISR (TIMER0_OVF_vect)
 {
 	button;
 	enc_delta;
