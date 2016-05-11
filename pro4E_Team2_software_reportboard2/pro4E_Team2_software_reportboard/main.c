@@ -1,3 +1,5 @@
+
+
 /*
  * pro4E_Team2_software_reportboard.c
  *
@@ -19,10 +21,6 @@ void displayAktualisieren();
 void initIO();
 
 
-volatile int8_t enc_delta;
-//volatile char enc_delta;		// -128 ... 127
-volatile int button = 0;
-static int8_t last;
 
 
 void initIO(void)
@@ -39,6 +37,14 @@ void initIO(void)
 	
 int main(void)
 {
+	
+	
+	volatile int8_t enc_delta;
+	//volatile char enc_delta;		// -128 ... 127
+	volatile int button = 0;
+	static int8_t last;
+	
+	
 	// Ladezeit für das Aufstarten der Spannungsversorguung
 	_delay_ms(500);
 

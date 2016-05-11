@@ -1,9 +1,9 @@
-//return value NULL
-void SPI_MasterInit(void);
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
 
-//@param char
-//return value NULL
-void SPI_MasterTransmit(char cData);
+#include "Tranceiver.h"
+#include "uart.h"
 
 void initSPI();
 

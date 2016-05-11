@@ -4,11 +4,14 @@
  * Created: 17.03.2016 15:21:02
  * Author : Claudius
  */ 
-
+#ifndef F_CPU 
+#define F_CPU 16000000UL
+#endif
 
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
+#include <avr/interrupt.h>
 
 //My .h-files
 #include "ADC.h"
@@ -40,23 +43,25 @@ void init(void)
 	PORTD = 0b00000100;
 	DDRD |= (1<<7)|(1<<6)|(0<<5)|(0<<4)|(0<<3)|(1<<2)|(0<<1)|(0<<0);
 	
-	//Transceiver
-	//UARTSPI = 0; //Select SPI
+
 }
 
 	
 int main(void)
 {
-	//init_adc();
-	//SPI_MasterInit();
+
 	init();	
 	initSPI();
+	init_Tranceiver();
+	sei();
 
 	while(1)
 	{
 		
 		ADC_receive();
-		_delay_ms(20);
+		//_delay_ms(20);
+		
+		uebertragung_uart();
 
 	}
 	

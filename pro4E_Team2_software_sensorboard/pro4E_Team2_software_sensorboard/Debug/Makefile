@@ -39,7 +39,9 @@ SUBDIRS :=
 C_SRCS +=  \
 ../ADC.c \
 ../main.c \
-../SPI.c
+../SPI.c \
+../Tranceiver.c \
+../uart.c
 
 
 PREPROCESSING_SRCS += 
@@ -51,22 +53,30 @@ ASM_SRCS +=
 OBJS +=  \
 ADC.o \
 main.o \
-SPI.o
+SPI.o \
+Tranceiver.o \
+uart.o
 
 OBJS_AS_ARGS +=  \
 ADC.o \
 main.o \
-SPI.o
+SPI.o \
+Tranceiver.o \
+uart.o
 
 C_DEPS +=  \
 ADC.d \
 main.d \
-SPI.d
+SPI.d \
+Tranceiver.d \
+uart.d
 
 C_DEPS_AS_ARGS +=  \
 ADC.d \
 main.d \
-SPI.d
+SPI.d \
+Tranceiver.d \
+uart.d
 
 OUTPUT_FILE_PATH +=pro4E_Team2_software_sensorboard.elf
 
@@ -82,6 +92,10 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
+
+
 
 
 
