@@ -2,7 +2,7 @@
 //  Simple LCD menu example based on structs 
 // (c) Matthias Meier
 // Remark: declaring all strings using PSTR() in PROGMEM and printing by printf_P("%S") would save SRAM space...
-//	but unfortunately PROGMEM isn't allowed in structs, so string constants would have to be declared outside them
+//	but unfortunately PROGMEM isn'nt allowd in structs, so string constants would have to be declared outside them
 
 #include <avr/io.h>
 #include <util/delay.h>
@@ -33,6 +33,7 @@ static char read_buttons(void);
 //Definition of the menu tree by declaring and initializing array variables of type MenuItem_T...
 
 struct MenuItem_T MainMenu[] = { 
+
 	{"Name of power plant",				nameFunc},
 	{"Number of modules",				numberModules},
 	{"Power Plant Status",				statusFunc},

@@ -11,10 +11,12 @@
 #define BUTTON_S1 (1<<4)
 #define BUTTON_S2 (1<<5)
 
+
 #define BUTTON_PORT PORTC
 #define BUTTON_PINS PINC5
 
 #define ENC_MENU 	BUTTON_S1 	// button S1 used to proceed to next menu item
+
 #define BUTTON_EXECUTE 	BUTTON_S2  // button S2 used to execute current active menu function
 
 #endif // BOARD_H
