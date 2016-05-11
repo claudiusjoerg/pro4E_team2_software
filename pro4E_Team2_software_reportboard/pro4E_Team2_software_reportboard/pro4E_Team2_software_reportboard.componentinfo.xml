@@ -1,3 +1,4 @@
+﻿
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Store xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="AtmelPackComponentManagement">
 	<ProjectComponents>
@@ -41,7 +42,7 @@
 					<Attribute>template</Attribute>
 					<Category>source</Category>
 					<Condition>C Exe</Condition>
-					<FileContentHash>8HFPP/7MdQ6Rwrrkq+B2wA==</FileContentHash>
+					<FileContentHash>GD1k8YYhulqRs6FD1B2Hog==</FileContentHash>
 					<FileVersion></FileVersion>
 					<Name>templates/main.c</Name>
 					<SelectString>Main file (.c)</SelectString>
@@ -83,4 +84,5 @@
 			<IsComponentInAtProject>true</IsComponentInAtProject>
 		</ProjectComponent>
 	</ProjectComponents>
+
 </Store>
