@@ -4,6 +4,9 @@
 // menutree.h
 // (c) Matthias Meier
 
+
+#include "board.h"
+
 //------------------------------------------------------------------------------
 
 //menu function type (a parameterless function with return value int)

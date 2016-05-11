@@ -8,7 +8,7 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
-#include "lcd_UNO.h" 
+#include "lcd_UNO.h"
 
 //LCD instruction
 #define lcd_Clear 0x01
