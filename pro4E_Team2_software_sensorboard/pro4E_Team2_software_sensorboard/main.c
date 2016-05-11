@@ -5,14 +5,16 @@
  * Author : Claudius
  */ 
 
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
 
-//
+//My .h-files
 #include "ADC.h"
 #include "SPI.h"
 #include "Tranceiver.h"
+#include "uart.h"
 
 #define LED1 6
 #define LED2 1
@@ -39,63 +41,23 @@ void init(void)
 	DDRD |= (1<<7)|(1<<6)|(0<<5)|(0<<4)|(0<<3)|(1<<2)|(0<<1)|(0<<0);
 	
 	//Transceiver
-	UARTSPI = 0; //Select SPI
+	//UARTSPI = 0; //Select SPI
 }
 
 	
 int main(void)
 {
 	//init_adc();
-	SPI_MasterInit();
-	init();
-	
-	char value1;
-	char value2;
-	int	ADCvalue;
-	char SendData;
-	
+	//SPI_MasterInit();
+	init();	
+	initSPI();
+
 	while(1)
 	{
-		//ADC Slave
-		PORTB4 &= ~SelectADC;
-		SendData = 0b00000001; //Last Bit is the Start Bit
-		value1 = SPI_MasterTransmit(SendData);
-		PORTX |= SelectADC;
 		
-		PORTX &= ~SelectADC;
-		SendData = 0b10100000; //SGL/Diff - ODD/SIGN - MSBF: Single Ended Mode, CH0 selected, MSB first format
-		value2 = SPI_MasterTransmit(SendData);
-		PORTX |= SelectADC;
-		
-		//Zusammensetzen
-		ADCvalue = value1;
-		ADCvalue = value2 << 8;
-		
-		//Tranceiver Slave
-			PORTD3 &= ~SelectTranceiver;
-			SendData = 0b00000001; //Last Bit is the Start Bit
-			value1 = SPI_MasterTransmit(SendData);
-			PORTX |= SelectTranceiver;				
-			PORTX &= ~SelectTranceiver;
-			SendData = 0b10100000; //SGL/Diff - ODD/SIGN - MSBF: Single Ended Mode, CH0 selected, MSB first format
-			value2 = SPI_MasterTransmit(SendData);
-			PORTX |= SelectTranceiver;
-		
-		
-		/*
-		PORTB = (1<<3); //signal the end of packet
-		ChipSelect = ON;
-		value = ADCwert;
-		ChipSelect = OFF;
-		*/
-		PORTD |= (value & 0x1<<LED1);
-		PORTB |= (value & 0x2<<LED2);
-		PORTD |= (value & 0x4<<LED3);
-		PORTD |= (value & 0x8<<LED4);
-		PORTD |= (value & 0x10<<LED5);
-		PORTD |= (value & 0x20<<LED6);
-		
-		_delay_ms(50);
+		ADC_receive();
+		_delay_ms(20);
+
 	}
 	
 	return 0;

@@ -20,7 +20,7 @@ Discarded input sections
                 0x00000000       0x28 ADC.o
  .debug_ranges  0x00000000       0x18 ADC.o
  .debug_line    0x00000000       0xb0 ADC.o
- .debug_str     0x00000000      0x1a1 ADC.o
+ .debug_str     0x00000000      0x199 ADC.o
  .comment       0x00000000       0x31 ADC.o
  .debug_frame   0x00000000       0x34 ADC.o
  .text          0x00000000        0x0 main.o
@@ -165,7 +165,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x00000000       0xfa
+.text           0x00000000       0xde
  *(.vectors)
  .vectors       0x00000000       0x68 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5/crtatmega328p.o
                 0x00000000                __vector_default
@@ -248,19 +248,18 @@ END GROUP
  *(.text.*)
  .text.init     0x00000080       0x1a main.o
                 0x00000080                init
- .text.main     0x0000009a       0x48 main.o
+ .text.main     0x0000009a       0x20 main.o
                 0x0000009a                main
- .text.SPI_MasterInit
-                0x000000e2        0xa SPI.o
-                0x000000e2                SPI_MasterInit
- .text.SPI_MasterTransmit
-                0x000000ec        0xa SPI.o
-                0x000000ec                SPI_MasterTransmit
-                0x000000f6                . = ALIGN (0x2)
+ .text.initSPI  0x000000ba       0x12 SPI.o
+                0x000000ba                initSPI
+ .text.ADC_receive
+                0x000000cc        0xe SPI.o
+                0x000000cc                ADC_receive
+                0x000000da                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x000000f6        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                0x000000f6                _exit
-                0x000000f6                exit
+ .fini9         0x000000da        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+                0x000000da                _exit
+                0x000000da                exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -279,11 +278,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x000000f6        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
+ .fini0         0x000000da        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
  *(.fini0)
-                0x000000fa                _etext = .
+                0x000000de                _etext = .
 
-.data           0x00800100        0x0 load address 0x000000fa
+.data           0x00800100        0x0 load address 0x000000de
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
@@ -300,8 +299,8 @@ END GROUP
  *(.bss*)
  *(COMMON)
                 0x00800100                PROVIDE (__bss_end, .)
-                0x000000fa                __data_load_start = LOADADDR (.data)
-                0x000000fa                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x000000de                __data_load_start = LOADADDR (.data)
+                0x000000de                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x00800100        0x0
                 0x00800100                PROVIDE (__noinit_start, .)
@@ -383,36 +382,35 @@ END GROUP
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000      0x24b
+.debug_info     0x00000000      0x21b
  *(.debug_info .gnu.linkonce.wi.*)
- .debug_info    0x00000000      0x199 main.o
- .debug_info    0x00000199       0xb2 SPI.o
+ .debug_info    0x00000000      0x168 main.o
+ .debug_info    0x00000168       0xb3 SPI.o
 
-.debug_abbrev   0x00000000      0x1ce
+.debug_abbrev   0x00000000      0x188
  *(.debug_abbrev)
- .debug_abbrev  0x00000000      0x154 main.o
- .debug_abbrev  0x00000154       0x7a SPI.o
+ .debug_abbrev  0x00000000      0x110 main.o
+ .debug_abbrev  0x00000110       0x78 SPI.o
 
-.debug_line     0x00000000      0x213
+.debug_line     0x00000000      0x1e0
  *(.debug_line .debug_line.* .debug_line_end)
- .debug_line    0x00000000      0x164 main.o
- .debug_line    0x00000164       0xaf SPI.o
+ .debug_line    0x00000000      0x12f main.o
+ .debug_line    0x0000012f       0xb1 SPI.o
 
 .debug_frame    0x00000000       0x68
  *(.debug_frame)
  .debug_frame   0x00000000       0x34 main.o
  .debug_frame   0x00000034       0x34 SPI.o
 
-.debug_str      0x00000000      0x1eb
+.debug_str      0x00000000      0x1c4
  *(.debug_str)
- .debug_str     0x00000000      0x1da main.o
-                                0x213 (size before relaxing)
- .debug_str     0x000001da       0x11 SPI.o
-                                0x1b3 (size before relaxing)
+ .debug_str     0x00000000      0x1b4 main.o
+                                0x1ed (size before relaxing)
+ .debug_str     0x000001b4       0x10 SPI.o
+                                0x19c (size before relaxing)
 
-.debug_loc      0x00000000       0x21
+.debug_loc
  *(.debug_loc)
- .debug_loc     0x00000000       0x21 main.o
 
 .debug_macinfo
  *(.debug_macinfo)

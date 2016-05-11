@@ -8,8 +8,9 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <stdio.h>
+#include <avr/interrupt.h>
 
-
+uint8_t Din;
 void initSPI(){
 	DDRB = (1<<PORTB3)|(1<<PORTB5)|(1<<PORTB2);//0b011100;
 	SPCR &= ~((1<<CPOL)|(1<<DORD));
@@ -20,32 +21,27 @@ void initSPI(){
 }
 
 
-short ADC_receive(){
+char ADC_receive(){
 	//transmit
 	char Dout= 0b1101;				//Startbit + Config die über SPI gesendet werden müssen
-	uint8_t Din;
+	
 	
 	// Start transmission (MOSI)
 	SPDR = Dout;
 	
 	while(!(SPSR & (1<<SPIF)));
 	
-	// Get return Value;
-	Din  = SPDR;
-	
-	// Latch the Output using rising pulse to the RCK Pin	
-	PORTB |= (1<< DDRB);
-	
-	 // Disable Latch
-	 PORTB &= ~(1<<DDRB);
-	 
-	return Dout;
+	return SPDR;
 }
-
+//SIGNAL(SIG_SPI){
+//		while(!(SPSR & (1<<SPIF)));
+//		Din = SPDR;
+//}
 
 int main(){
 
 	initSPI();
+
 	while(1)
 	{
 		ADC_receive();
