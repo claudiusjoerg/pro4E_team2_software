@@ -29,16 +29,14 @@
 #define EncDDR DDRD
 
 #define BUTTON (1<<4)
-#define MODE (1<<4)
+/*#define MODE (1<<4)
 #define CNT_MAX 10
 #define CNT_MIN 0
-#define AUTOREPEAT_SET 50
+#define AUTOREPEAT_SET 50*/
 
 #define PHASE_A	(EncPort_A & 1<<EncPIN_A)	// PINC.0
 #define PHASE_B (EncPort_B & 1<<EncPIN_B)	// PINC.1
 
-char enc_delta;		// -128 ... 127
-volatile int button = 0;
 
 void init_encoder()
 {
@@ -72,59 +70,24 @@ void encodeFunc()
 		enc_delta += (i & 2) - 1;		// bit 1 = direction (+/-)
 	}
 }
-	
-void controlLED()
+
+/*void encode_init( void )
 {
-	switch(enc_delta){  //enc.Var. zw. -127...128 zeigt position an
-	case 1:
-		1<<EncPIN_LED1;
-		break;
-	case -1:
-		1<<EncPIN_LED3;
-		break;
-	case 2:
-		1<<EncPIN_LED2;
-		break;
-	case -2:
-		1<<EncPIN_LED2;
-		break;
-	case 3:
-		1<<EncPIN_LED3;
-		break;
-	case -3:
-		1<<EncPIN_LED1;
-		break;
+	int8_t new;
 	
-	default:
-		if(enc_delta%3==0)
-		{
-			if(enc_delta>0)  // im uhrzeigersinn
-			{
-			goto case 3;     //alle mit leuchtendem LED3
-			}
-			else             // im gegenuhrzeigersinn
-			{
-			goto case -3;    //alle mit leuchtendem LED1
-			}
-		}
-		if((enc_delta+1)%3==0)
-		{
-			goto case 2;      // auf beide seite leuchtet LED2
-		}
-		if((enc_delta-1)%3==0)
-		{
-			if(enc_delta>0)    //im uhrzeigersinn
-			{
-				goto case 1;   //alle mit leuchtendem LED1
-			}
-			else               // im gegenuhrzeigersinn
-			{
-				goto case -1;
-			}
-		}
-		break;
-	}
-}
+	new = 0;
+	if( PHASE_A )
+	new = 3;
+	if( PHASE_B )
+	new ^= 1;                   // convert gray to binary
+	last = new;                   // power on state
+	enc_delta = 0;
+	TCCR0 = 1<<WGM01^1<<CS01^1<<CS00;     // CTC, XTAL / 64
+	OCR0 = (uint8_t)(XTAL / 64.0 * 1e-3 - 0.5);   // 1ms
+	TIMSK |= 1<<OCIE0;
+}*/
+	
+
 
 
 void initISR ()
@@ -134,8 +97,35 @@ void initISR ()
 	sei();
 }
 
-ISR (TIMER0_OVF_vect)
+/*ISR (TIMER0_OVF_vect)
 {
-	button = check_button();
-	enc_delta = encodeFunc();
+	button;
+	enc_delta;
+}*/
+
+ISR( TIMER0_COMP_vect )             // 1ms for manual movement
+{
+	int8_t new, diff;
+	
+	new = 0;
+	if( PHASE_A )
+	new = 3;
+	if( PHASE_B )
+	new ^= 1;                   // convert gray to binary
+	diff = last - new;                // difference last - new
+	if( diff & 1 ){               // bit 0 = value (1)
+		last = new;                 // store new as next last
+		enc_delta += (diff & 2) - 1;        // bit 1 = direction (+/-)
+	}
+}
+
+int8_t encode_read2( void )         // read two step encoders
+{
+	int8_t val;
+	
+	cli();
+	val = enc_delta;
+	enc_delta = val & 1;
+	sei();
+	return val >> 1;
 }

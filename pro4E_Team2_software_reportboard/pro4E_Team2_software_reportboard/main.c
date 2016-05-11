@@ -19,8 +19,11 @@ void displayAktualisieren();
 void initIO();
 
 
-volatile char enc_delta;
-volatile int button;
+volatile int8_t enc_delta;
+//volatile char enc_delta;		// -128 ... 127
+volatile int button = 0;
+static int8_t last;
+
 
 void initIO(void)
 {
@@ -84,3 +87,63 @@ void displayAktualisieren()
 }
 */
 
+enc_delta=encode_read2;
+void controlLED()//DREHGEBER
+{
+	/*Knopffunktion*/
+	if(button==1)      //button gedrückt
+	{
+		1<<EncPIN_BT;  //button-LED leuchtet nun
+	}
+	
+	/*Drehfunktion*/
+	switch(enc_delta){  //enc.Var. zw. -127...128 zeigt position an
+		case 1:
+		1<<EncPIN_LED1;
+		break;
+		case -1:
+		1<<EncPIN_LED3;
+		break;
+		case 2:
+		1<<EncPIN_LED2;
+		break;
+		case -2:
+		1<<EncPIN_LED2;
+		break;
+		case 3:
+		1<<EncPIN_LED3;
+		break;
+		case -3:
+		1<<EncPIN_LED1;
+		break;
+		
+		default:
+		if(enc_delta%3==0)
+		{
+			if(enc_delta>0)  // im uhrzeigersinn
+			{
+				1<<EncPIN_LED3;     //alle mit leuchtendem LED3, go to case 3
+			}
+			else             // im gegenuhrzeigersinn
+			{
+				1<<EncPIN_LED1;    //alle mit leuchtendem LED1, go to case-3
+			}
+		}
+		if((enc_delta+1)%3==0)
+		{
+			1<<EncPIN_LED2;      // auf beide seite leuchtet LED2, go to case 2
+		}
+		if((enc_delta-1)%3==0)
+		{
+			if(enc_delta>0)    //im uhrzeigersinn
+			{
+				1<<EncPIN_LED1;   //alle mit leuchtendem LED1, go to case 1
+			}
+			else               // im gegenuhrzeigersinn
+			{
+				1<<EncPIN_LED3; // go to case -1
+			}
+		}
+		break;
+	}
+}
