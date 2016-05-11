@@ -18,6 +18,32 @@
 //#include "menutree.h"
 
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD:pro4E_Team2_software_reportboard/pro4E_Team2_software_reportboard/main.c
+
+volatile int8_t enc_delta;
+//volatile char enc_delta;		// -128 ... 127
+volatile int button = 0;
+static int8_t last;
+volatile int8_t menu_Max;
+=======
+
+>>>>>>> cd818d65562cc0b44545cfca96a2ef5ebb260b2e:pro4E_Team2_software_reportboard2/pro4E_Team2_software_reportboard/main.c
+
+
+void initIO(void)
+{
+	//DDRB = 0b00000001;
+	//PORTB = 0b10000100;
+	
+	//DDRC = 0b00000000;
+	//PORTC = 0b00010000;
+	
+	//DDRD = 0b00000000;
+	//PORTD = 0b00111100;
+}
+>>>>>>> 106cb76223a197fa4a8e5b960e31f035f743cc79
 	
 int main(void)
 {
