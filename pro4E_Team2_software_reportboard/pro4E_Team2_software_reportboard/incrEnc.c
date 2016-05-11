@@ -75,6 +75,13 @@ void encodeFunc()
 	
 void controlLED()
 {
+	/*Knopffunktion*/
+	if(button==1)      //button gedrückt
+	{
+		1<<EncPIN_BT;  //button-LED leuchtet nun
+	}
+	
+	/*Drehfunktion*/
 	switch(enc_delta){  //enc.Var. zw. -127...128 zeigt position an
 	case 1:
 		1<<EncPIN_LED1;
@@ -100,26 +107,26 @@ void controlLED()
 		{
 			if(enc_delta>0)  // im uhrzeigersinn
 			{
-			goto case 3;     //alle mit leuchtendem LED3
+			1<<EncPIN_LED3;     //alle mit leuchtendem LED3, go to case 3
 			}
 			else             // im gegenuhrzeigersinn
 			{
-			goto case -3;    //alle mit leuchtendem LED1
+			1<<EncPIN_LED1;    //alle mit leuchtendem LED1, go to case-3
 			}
 		}
 		if((enc_delta+1)%3==0)
 		{
-			goto case 2;      // auf beide seite leuchtet LED2
+			1<<EncPIN_LED2;      // auf beide seite leuchtet LED2, go to case 2
 		}
 		if((enc_delta-1)%3==0)
 		{
 			if(enc_delta>0)    //im uhrzeigersinn
 			{
-				goto case 1;   //alle mit leuchtendem LED1
+				1<<EncPIN_LED1;   //alle mit leuchtendem LED1, go to case 1
 			}
 			else               // im gegenuhrzeigersinn
 			{
-				goto case -1;
+				1<<EncPIN_LED3; // go to case -1
 			}
 		}
 		break;
@@ -136,6 +143,6 @@ void initISR ()
 
 ISR (TIMER0_OVF_vect)
 {
-	button = check_button();
-	enc_delta = encodeFunc();
+	button;
+	enc_delta;
 }
