@@ -125,6 +125,12 @@
     <Compile Include="ADC.c">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="CRC.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="CRC.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>

@@ -31,6 +31,7 @@ void _LoadMenu(struct MenuItem_T menu[], int nrItems)
  */
 void ProcessMenu(char button)
 {
+#if 0
 	switch (button){
 		
 	case ENC_MENU:
@@ -54,6 +55,10 @@ void ProcessMenu(char button)
 		if (activeMenu[activeMenuItem].func!=NULL)  
 			activeMenu[activeMenuItem].func();					//execute the selected menufunction
 	}
+<<<<<<< HEAD
+	printf("\n%s",activeMenu[activeMenuItem].text);				//display current selected menu text
+#endif
+=======
 	lcd_cursor_addr(LINE1);
 	printf("%s",activeMenu[activeMenuItem].text);				//display current selected menu text
 	lcd_cursor_addr(LINE2);
@@ -62,6 +67,7 @@ void ProcessMenu(char button)
 	printf("%s",activeMenu[activeMenuItem+2].text);	
 	lcd_cursor_addr(LINE4);
 	printf("%s",activeMenu[activeMenuItem+3].text);	
+>>>>>>> 7b945e425374db8c67952510651b4dfc0453ebf4
 }
 
 
