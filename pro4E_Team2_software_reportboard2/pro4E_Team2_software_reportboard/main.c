@@ -12,24 +12,11 @@
 #include <stdio.h>
 #include <avr/interrupt.h>
 #include "lcd_UNO.h"
-//#include "SPI.h"
 #include "incrEnc.h"
-//#include "board.h"
-//#include "menutree.h"
-
-
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD:pro4E_Team2_software_reportboard/pro4E_Team2_software_reportboard/main.c
-
-volatile int8_t enc_delta;
-//volatile char enc_delta;		// -128 ... 127
-volatile int button = 0;
-static int8_t last;
-volatile int8_t menu_Max;
-=======
-
->>>>>>> cd818d65562cc0b44545cfca96a2ef5ebb260b2e:pro4E_Team2_software_reportboard2/pro4E_Team2_software_reportboard/main.c
+#include "board.h"
+#include "menutree.h"
+#include "menutree_demo.h"
+//#include "SPI.h"
 
 
 void initIO(void)
@@ -43,7 +30,6 @@ void initIO(void)
 	//DDRD = 0b00000000;
 	//PORTD = 0b00111100;
 }
->>>>>>> 106cb76223a197fa4a8e5b960e31f035f743cc79
 	
 int main(void)
 {
@@ -61,21 +47,22 @@ int main(void)
 	
 	// Lädt das Hauptmenu
 	//while (!read_buttons());
-	//LoadMenu(MainMenu);
+	LoadMenu(MainMenu);
 		
 	_delay_ms(100);
 	
-	int d = 0;
+	//7int d = 0;
 
 	while(1)
 	{
+		/*
 		lcd_cursor_addr(LINE1);
 		printf("Timer:%i",d++);
 		lcd_cursor_addr(LINE2);
 		printf("Counter:%i",timercounter);
-		
+		*/
 		enc_delta = encode_read2();
-		controlLED();
+		//controlLED();
 	
 		_delay_ms(1000);
 	}

@@ -3,7 +3,7 @@ Archive member included to satisfy reference by file (symbol)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
                               incrEnc.o (__divmodhi4)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_exit.o)
-                              C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o (exit)
+                              C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o (exit)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_copy_data.o)
                               main.o (__do_copy_data)
 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_clear_bss.o)
@@ -32,14 +32,15 @@ c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/..
 Allocating common symbols
 Common symbol       size              file
 
-activeMenuItem      0x2               menutree.o
+menu_Max            0x1               menutree.o
+activeMenuItem      0x2               main.o
 __iob               0x6               c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a(iob.o)
-activeMenu          0x2               menutree.o
+activeMenu          0x2               main.o
 
 Discarded input sections
 
- .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
- .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .data          0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .bss           0x00000000        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
  .text          0x00000000        0x0 incrEnc.o
  .data          0x00000000        0x0 incrEnc.o
  .bss           0x00000000        0x0 incrEnc.o
@@ -53,38 +54,36 @@ Discarded input sections
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
+ .text.initIO   0x00000000        0x2 main.o
  .bss.button    0x00000000        0x2 main.o
+ COMMON         0x00000000        0x4 main.o
  .text          0x00000000        0x0 menutree.o
  .data          0x00000000        0x0 menutree.o
  .bss           0x00000000        0x0 menutree.o
  .rodata.str1.1
                 0x00000000        0x4 menutree.o
  .text.ProcessMenu
-                0x00000000       0x8c menutree.o
+                0x00000000      0x100 menutree.o
  .text._LoadMenu
                 0x00000000       0x20 menutree.o
  .bss.nrMenuItems
                 0x00000000        0x2 menutree.o
- .debug_info    0x00000000      0x186 menutree.o
- .debug_abbrev  0x00000000      0x114 menutree.o
+ .bss.enc_delta
+                0x00000000        0x1 menutree.o
+ .debug_info    0x00000000      0x1b9 menutree.o
+ .debug_abbrev  0x00000000      0x11b menutree.o
  .debug_loc     0x00000000       0xeb menutree.o
  .debug_aranges
                 0x00000000       0x28 menutree.o
  .debug_ranges  0x00000000       0x18 menutree.o
- .debug_line    0x00000000       0xc5 menutree.o
- .debug_str     0x00000000      0x1fd menutree.o
+ .debug_line    0x00000000       0xd7 menutree.o
+ .debug_str     0x00000000      0x248 menutree.o
  .comment       0x00000000       0x31 menutree.o
  .debug_frame   0x00000000       0x44 menutree.o
- COMMON         0x00000000        0x4 menutree.o
+ COMMON         0x00000000        0x1 menutree.o
  .text          0x00000000        0x0 menutree_demo.o
  .data          0x00000000        0x0 menutree_demo.o
  .bss           0x00000000        0x0 menutree_demo.o
- .text.editModule
-                0x00000000        0x2 menutree_demo.o
- .text.voltageSys
-                0x00000000        0x2 menutree_demo.o
- .text.powerSys
-                0x00000000        0x2 menutree_demo.o
  .text.notesSys
                 0x00000000        0x2 menutree_demo.o
  .text.nameFunc
@@ -98,9 +97,15 @@ Discarded input sections
  .text.backMain
                 0x00000000        0xe menutree_demo.o
  .rodata.str1.1
-                0x00000000       0xc9 menutree_demo.o
+                0x00000000      0x10b menutree_demo.o
  .text.editName
                 0x00000000       0x36 menutree_demo.o
+ .text.editModule
+                0x00000000       0x12 menutree_demo.o
+ .text.voltageSys
+                0x00000000       0x12 menutree_demo.o
+ .text.powerSys
+                0x00000000       0x12 menutree_demo.o
  .data.SubMenuAbout
                 0x00000000        0x4 menutree_demo.o
  .data.SubMenuStatus
@@ -111,16 +116,18 @@ Discarded input sections
                 0x00000000        0x8 menutree_demo.o
  .data.MainMenu
                 0x00000000       0x10 menutree_demo.o
- .debug_info    0x00000000      0x3d1 menutree_demo.o
- .debug_abbrev  0x00000000      0x140 menutree_demo.o
- .debug_loc     0x00000000       0x3c menutree_demo.o
+ .bss.enc_delta
+                0x00000000        0x1 menutree_demo.o
+ .debug_info    0x00000000      0x41c menutree_demo.o
+ .debug_abbrev  0x00000000      0x156 menutree_demo.o
+ .debug_loc     0x00000000       0xf0 menutree_demo.o
  .debug_aranges
                 0x00000000       0x68 menutree_demo.o
  .debug_ranges  0x00000000       0x58 menutree_demo.o
- .debug_line    0x00000000      0x158 menutree_demo.o
- .debug_str     0x00000000      0x293 menutree_demo.o
+ .debug_line    0x00000000      0x167 menutree_demo.o
+ .debug_str     0x00000000      0x2d5 menutree_demo.o
  .comment       0x00000000       0x31 menutree_demo.o
- .debug_frame   0x00000000       0xc0 menutree_demo.o
+ .debug_frame   0x00000000       0xe4 menutree_demo.o
  .text          0x00000000        0x0 SPI.o
  .data          0x00000000        0x0 SPI.o
  .bss           0x00000000        0x0 SPI.o
@@ -134,7 +141,7 @@ Discarded input sections
                 0x00000000       0x28 SPI.o
  .debug_ranges  0x00000000       0x18 SPI.o
  .debug_line    0x00000000       0xaf SPI.o
- .debug_str     0x00000000      0x1b1 SPI.o
+ .debug_str     0x00000000      0x1e2 SPI.o
  .comment       0x00000000       0x31 SPI.o
  .debug_frame   0x00000000       0x34 SPI.o
  .text          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a(_divmodhi4.o)
@@ -278,7 +285,7 @@ user_signatures  0x00850000         0x00000400         rw !x
 Linker script and memory map
 
 Address of section .data set to 0x800100
-LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
 LOAD incrEnc.o
 LOAD lcd_UNO.o
 LOAD main.o
@@ -292,7 +299,7 @@ START GROUP
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/avr5\libgcc.a
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libm.a
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5\libc.a
-LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5\libatmega328p.a
+LOAD C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5\libatmega328p.a
 END GROUP
 
 .hash
@@ -387,7 +394,7 @@ END GROUP
 
 .text           0x00000000      0xb16
  *(.vectors)
- .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .vectors       0x00000000       0x68 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000000                __vector_default
                 0x00000000                __vectors
  *(.vectors)
@@ -413,13 +420,13 @@ END GROUP
  SORT(*)(.ctors)
  SORT(*)(.dtors)
  *(.init0)
- .init0         0x00000068        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .init0         0x00000068        0x0 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x00000068                __init
  *(.init0)
  *(.init1)
  *(.init1)
  *(.init2)
- .init2         0x00000068        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .init2         0x00000068        0xc C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
  *(.init2)
  *(.init3)
  *(.init3)
@@ -438,10 +445,10 @@ END GROUP
  *(.init8)
  *(.init8)
  *(.init9)
- .init9         0x0000009a        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .init9         0x0000009a        0x8 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
  *(.init9)
  *(.text)
- .text          0x000000a2        0x4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+ .text          0x000000a2        0x4 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
                 0x000000a2                __vector_22
                 0x000000a2                __vector_1
                 0x000000a2                __vector_24
@@ -571,7 +578,7 @@ END GROUP
                 0x00800100                PROVIDE (__data_start, .)
  *(.data)
  *(.data*)
- .data.fd_lcd.1785
+ .data.fd_lcd.1801
                 0x00800100        0xe main.o
  *(.rodata)
  *(.rodata*)
@@ -587,10 +594,10 @@ END GROUP
  *(.bss)
  *(.bss*)
  .bss.last      0x00800122        0x1 incrEnc.o
- .bss.timercounter
-                0x00800123        0x2 incrEnc.o
  .bss.enc_delta
-                0x00800125        0x1 incrEnc.o
+                0x00800123        0x1 incrEnc.o
+ .bss.timercounter
+                0x00800124        0x2 incrEnc.o
  .bss.button    0x00800126        0x2 incrEnc.o
  .bss.nl_seen.1801
                 0x00800128        0x1 lcd_UNO.o
@@ -662,7 +669,7 @@ END GROUP
 .note.gnu.avr.deviceinfo
                 0x00000000       0x40
  .note.gnu.avr.deviceinfo
-                0x00000000       0x40 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/Atmel/ATmega_DFP/1.0.91/gcc/dev/atmega328p/avr5/crtatmega328p.o
+                0x00000000       0x40 C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATmega_DFP/1.0.90/gcc/dev/atmega328p/avr5/crtatmega328p.o
 
 .note.gnu.build-id
  *(.note.gnu.build-id)
@@ -679,50 +686,50 @@ END GROUP
 .debug_sfnames
  *(.debug_sfnames)
 
-.debug_aranges  0x00000000       0xd0
+.debug_aranges  0x00000000       0xd8
  *(.debug_aranges)
  .debug_aranges
                 0x00000000       0x50 incrEnc.o
  .debug_aranges
                 0x00000050       0x60 lcd_UNO.o
  .debug_aranges
-                0x000000b0       0x20 main.o
+                0x000000b0       0x28 main.o
 
 .debug_pubnames
  *(.debug_pubnames)
 
-.debug_info     0x00000000     0x1035
+.debug_info     0x00000000     0x10b1
  *(.debug_info .gnu.linkonce.wi.*)
  .debug_info    0x00000000      0x1d9 incrEnc.o
  .debug_info    0x000001d9      0xbbf lcd_UNO.o
- .debug_info    0x00000d98      0x29d main.o
+ .debug_info    0x00000d98      0x319 main.o
 
-.debug_abbrev   0x00000000      0x536
+.debug_abbrev   0x00000000      0x566
  *(.debug_abbrev)
  .debug_abbrev  0x00000000      0x10a incrEnc.o
  .debug_abbrev  0x0000010a      0x29f lcd_UNO.o
- .debug_abbrev  0x000003a9      0x18d main.o
+ .debug_abbrev  0x000003a9      0x1bd main.o
 
-.debug_line     0x00000000      0x56e
+.debug_line     0x00000000      0x58b
  *(.debug_line .debug_line.* .debug_line_end)
  .debug_line    0x00000000      0x138 incrEnc.o
  .debug_line    0x00000138      0x2cf lcd_UNO.o
- .debug_line    0x00000407      0x167 main.o
+ .debug_line    0x00000407      0x184 main.o
 
-.debug_frame    0x00000000      0x1f8
+.debug_frame    0x00000000      0x208
  *(.debug_frame)
  .debug_frame   0x00000000       0xcc incrEnc.o
  .debug_frame   0x000000cc       0xec lcd_UNO.o
- .debug_frame   0x000001b8       0x40 main.o
+ .debug_frame   0x000001b8       0x50 main.o
 
-.debug_str      0x00000000      0x3da
+.debug_str      0x00000000      0x3ec
  *(.debug_str)
- .debug_str     0x00000000      0x1da incrEnc.o
-                                0x22b (size before relaxing)
- .debug_str     0x000001da      0x1e2 lcd_UNO.o
-                                0x306 (size before relaxing)
- .debug_str     0x000003bc       0x1e main.o
-                                0x22a (size before relaxing)
+ .debug_str     0x00000000      0x20b incrEnc.o
+                                0x25c (size before relaxing)
+ .debug_str     0x0000020b      0x182 lcd_UNO.o
+                                0x338 (size before relaxing)
+ .debug_str     0x0000038d       0x5f main.o
+                                0x29c (size before relaxing)
 
 .debug_loc      0x00000000      0x654
  *(.debug_loc)
@@ -748,11 +755,11 @@ END GROUP
 .debug_pubtypes
  *(.debug_pubtypes)
 
-.debug_ranges   0x00000000       0xb8
+.debug_ranges   0x00000000       0xc0
  *(.debug_ranges)
  .debug_ranges  0x00000000       0x40 incrEnc.o
  .debug_ranges  0x00000040       0x68 lcd_UNO.o
- .debug_ranges  0x000000a8       0x10 main.o
+ .debug_ranges  0x000000a8       0x18 main.o
 
 .debug_macro
  *(.debug_macro)

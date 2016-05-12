@@ -21,10 +21,8 @@ ISR (TIMER0_OVF_vect)
 
 // Globale Variabeln
 static volatile int button = 0;
+//static int timercounter = 0;
 static volatile int8_t enc_delta;	// -128 ... 127
-static int timercounter = 0;
-
-
 
 // Defines
 #define EncPort_A PORTD

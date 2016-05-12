@@ -5,12 +5,12 @@
 
 #include <stdio.h>
 #include "menutree.h"
-
 #include "board.h"
 
-struct MenuItem_T * activeMenu;		//same as: static struct MenuItem_T activeMenu[];
+struct MenuItem_T * activeMenu;									//same as: static struct MenuItem_T activeMenu[];
 int activeMenuItem;
 static int nrMenuItems;
+volatile int8_t menu_Max;
 
 
 /**
@@ -21,7 +21,7 @@ void _LoadMenu(struct MenuItem_T menu[], int nrItems)
 		activeMenu = menu;
 		nrMenuItems = nrItems;
 		activeMenuItem = 0;
-		ProcessMenu(0); 	//Display first menuitem (on first display line)
+		ProcessMenu(0);											// Display first menuitem (on first display line)
 }
 
 /**
@@ -29,13 +29,9 @@ void _LoadMenu(struct MenuItem_T menu[], int nrItems)
  */
 void ProcessMenu(char button)
 {
-	switch (button) {
-
-<<<<<<< HEAD
+	switch (button){
+		
 	case ENC_MENU:
-		activeMenuItem = (activeMenuItem + 1) % nrMenuItems; //proceed to next menu item
-=======
-	case BUTTON_MENU:
 		if (enc_delta < 0)
 		{
 			if (-enc_delta > activeMenuItem)
@@ -49,15 +45,14 @@ void ProcessMenu(char button)
 			}
 			 else activeMenuItem +=enc_delta;
 		}
-		//activeMenuItem = (activeMenuItem + 1) % nrMenuItems; //proceed to next menu item
->>>>>>> 106cb76223a197fa4a8e5b960e31f035f743cc79
+		//activeMenuItem = (activeMenuItem + 1) % nrMenuItems;	//proceed to next menu item
 		break;
 
 	case BUTTON_EXECUTE:
 		if (activeMenu[activeMenuItem].func!=NULL)  
-			activeMenu[activeMenuItem].func(); //execute the selected menufunction
+			activeMenu[activeMenuItem].func();					//execute the selected menufunction
 	}
-	printf("\n%s",activeMenu[activeMenuItem].text);  //display current selected menu text
+	printf("\n%s",activeMenu[activeMenuItem].text);				//display current selected menu text
 }
 
 

@@ -4,8 +4,7 @@
 // menutree.h
 // (c) Matthias Meier
 
-
-#include "board.h"
+static volatile int8_t enc_delta;	// -128 ... 127
 
 //------------------------------------------------------------------------------
 

@@ -10,28 +10,10 @@
 
 #include "board.h"
 #include "menutree.h"
+#include "menutree_demo.h"
 #include "lcd_UNO.h"
 
 //------------------------------------------------------------------------------
-//menu text and and prototype function for example menu (implemented below)
-
-void nameFunc(void);  		
-void numberModules(void);			
-void statusFunc(void);
-void aboutFunc(void);
-void editModule(void);
-void voltageSys(void);
-void powerSys(void);
-void notesSys(void);
-void backMain(void);
-void editName(void);
-		
-void MF_LoadmenuMain(void);	
-
-//static char read_buttons(void);
-
-//------------------------------------------------------------------------------
-
 //Definition of the menu tree by declaring and initializing array variables of type MenuItem_T...
 
 struct MenuItem_T MainMenu[] = { 

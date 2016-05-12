@@ -134,5 +134,5 @@ ISR( TIMER0_OVF_vect )             // 1ms for manual movement
 {
 	erz_enc_delta();
 	check_button();					//schaut ob button gedrückt
-	timercounter++;
+	//timercounter++;
 }
