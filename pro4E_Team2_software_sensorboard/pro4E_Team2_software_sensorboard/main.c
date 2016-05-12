@@ -18,6 +18,7 @@
 #include "SPI.h"
 #include "Tranceiver.h"
 #include "uart.h"
+#include "CRC.h"
 
 #define LED1 6
 #define LED2 1
