@@ -4,8 +4,6 @@
 // menutree.h
 // (c) Matthias Meier
 
-static volatile int8_t enc_delta;	// -128 ... 127
-
 //------------------------------------------------------------------------------
 
 //menu function type (a parameterless function with return value int)

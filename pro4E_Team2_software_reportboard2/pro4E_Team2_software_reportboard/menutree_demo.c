@@ -25,16 +25,12 @@ struct MenuItem_T MainMenu[] = {
 
 struct MenuItem_T  SubMenuName[] = {
 	{"Edit Name",						editName},
-	{"Save and back to mainmenu",		backMain},			// Wie wird die Eingabe gespeichert für die Wiederverwendung?
-	{"",								NULL},
-	{"",								NULL}
+	{"Save and back to mainmenu",		backMain}			// Wie wird die Eingabe gespeichert für die Wiederverwendung?
 };
 
 struct MenuItem_T  SubMenuNumber[] = {
 	{"Edit number of modules",			editModule},
-	{"Save and back to mainmenu",		backMain},
-	{"",								NULL},
-	{"",								NULL}
+	{"Save and back to mainmenu",		backMain}
 };
 
 struct MenuItem_T  SubMenuStatus[] = {
@@ -45,10 +41,7 @@ struct MenuItem_T  SubMenuStatus[] = {
 };
 
 struct MenuItem_T  SubMenuAbout[] = {
-	{"Back to Mainmenu",				backMain},
-	{"",								NULL},
-	{"",								NULL},
-	{"",								NULL}
+	{"Back to Mainmenu",				backMain}
 };
 
 //------------------------------------------------------------------------------

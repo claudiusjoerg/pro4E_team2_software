@@ -8,6 +8,7 @@
 #include "menutree_demo.h"
 #include "board.h"
 #include "lcd_UNO.h"
+#include "incrEnc.h"
 
 struct MenuItem_T * activeMenu;									//same as: static struct MenuItem_T activeMenu[];
 int activeMenuItem;

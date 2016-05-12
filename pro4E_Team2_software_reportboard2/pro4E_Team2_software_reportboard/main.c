@@ -55,16 +55,18 @@ int main(void)
 
 	while(1)
 	{
-		/*
-		lcd_cursor_addr(LINE1);
-		printf("Timer:%i",d++);
-		lcd_cursor_addr(LINE2);
-		printf("Counter:%i",timercounter);
-		*/
-		enc_delta = encode_read2();
+		//enc_delta = encode_read2();
 		//controlLED();
+		
+		lcd_cursor_addr(LINE1);
+		printf("enc_delta = %d", enc_delta);
+		lcd_cursor_addr(LINE2);
+		printf("button is %s\n", (button&BUTTON)? "set":"reset"); // falls button gedrückt schreibe set sonst reset.
+		
+		EncPort = EncPort & (~BUTTON|button);
+		EncPort = (EncPort & ~((0b111)<<EncPIN_LED1)) | (enc_delta & 0b111)<<EncPIN_LED1;
 	
-		_delay_ms(1000);
+		_delay_ms(200);
 	}
 	
 	return 0;

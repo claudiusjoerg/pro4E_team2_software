@@ -1,0 +1,520 @@
+[33mcommit 460f1dff78fa99e536e3e63b1e63cd4326601290[m
+Merge: 8d7d3dd 4014de1
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu May 12 11:38:01 2016 +0200
+
+    something
+
+[33mcommit 4014de1e435e23aeed4bcfe80472bab0b1984a2f[m
+Merge: d650ba3 b53da9d
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu May 12 11:17:12 2016 +0200
+
+    Merge branch 'master' of https://github.com/claudiusjoerg/pro4E_team2_software
+
+[33mcommit d650ba374054829355a0a5ea62b0663f4ecd8c31[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu May 12 11:17:01 2016 +0200
+
+    CRC.c und CRC.h hinzugefügt
+
+[33mcommit 8d7d3dd88bcb025081a95271a7981c4775e6644c[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu May 12 11:17:00 2016 +0200
+
+    something
+
+[33mcommit b53da9d6fc51efac0de08e60d951b1f5d76182a0[m
+Merge: cfcfcf1 7b945e4
+Author: simmenss <simmensss@github.com>
+Date:   Thu May 12 11:14:14 2016 +0200
+
+    sf
+
+[33mcommit cfcfcf17fb43c3028aba9b18ed0ae7a0c36f9119[m
+Merge: 3db0e49 6c0ca26
+Author: simmenss <simmensss@github.com>
+Date:   Thu May 12 10:59:34 2016 +0200
+
+    sdf
+
+[33mcommit 7b945e425374db8c67952510651b4dfc0453ebf4[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu May 12 10:31:42 2016 +0200
+
+    all lines of menu
+
+[33mcommit 3db0e490f717b2ffc84a519a90754a5c8adbd885[m
+Author: simmenss <simmensss@github.com>
+Date:   Thu May 12 10:15:09 2016 +0200
+
+    interrupt
+
+[33mcommit 6c0ca265e9e41797d34b71241875c5bf95de66c3[m
+Merge: eb3f7c1 530cb30
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu May 12 10:03:14 2016 +0200
+
+    Merge branch 'master' of https://github.com/claudiusjoerg/pro4E_team2_software
+
+[33mcommit eb3f7c11d0d46e7df4480f72b96a0734a3e16164[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu May 12 10:03:05 2016 +0200
+
+    nüt
+
+[33mcommit 530cb303e690b9870b40555339216784e1eed9dd[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu May 12 09:58:28 2016 +0200
+
+    first row of menu
+
+[33mcommit e45dd30db11297543197213bfb03c7f2499d60d6[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu May 12 09:16:50 2016 +0200
+
+    transfrom yohme's work
+
+[33mcommit 0cc2b6c6111d3351f40ad28ab5af600c350a7fa4[m
+Merge: 3b662e0 106cb76
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 18:07:14 2016 +0200
+
+    sdf
+
+[33mcommit 3b662e09a7971845d601de27152ed14933d99393[m
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 18:05:17 2016 +0200
+
+    ssdf
+
+[33mcommit 9013605379294d747784ddd6f314b20f811b339b[m
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 15:04:29 2016 +0200
+
+    df
+
+[33mcommit d02070ea51bffecb3dbdec7c3b08a10c499bffff[m
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 15:01:25 2016 +0200
+
+    neues projekt
+
+[33mcommit f5c3e2b50f0c585cb706b10c553b57082b93f827[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Wed May 11 14:52:58 2016 +0200
+
+    SEnsorboard Eingang def und Reportboard schockiert angeschaut
+
+[33mcommit 106cb76223a197fa4a8e5b960e31f035f743cc79[m
+Merge: cd05c82 cd818d6
+Author: Yohmea <yohannes.measho@students.fhnw.ch>
+Date:   Wed May 11 14:18:28 2016 +0200
+
+    merge
+
+[33mcommit cd818d65562cc0b44545cfca96a2ef5ebb260b2e[m
+Merge: ab6573d 9013605
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed May 11 16:06:21 2016 +0200
+
+    something new
+
+[33mcommit ab6573d0989eeda6125ce71a43ce5fde9a5aba63[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed May 11 16:00:12 2016 +0200
+
+    no idea
+
+[33mcommit cd05c828da873f10c1602d1a6054b5653c66c892[m
+Author: Yohmea <yohannes.measho@students.fhnw.ch>
+Date:   Wed May 11 14:09:07 2016 +0200
+
+    merge
+
+[33mcommit dff20ff8ae8b0e856e137d19e0c94e24865a7fc1[m
+Merge: 3e3610d 3341c1d
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Wed May 11 14:08:26 2016 +0200
+
+    Merge branch 'master' of https://github.com/claudiusjoerg/pro4E_team2_software
+    
+    Conflicts:
+    	pro4E_Team2_software_reportboard/pro4E_Team2_software_reportboard/Debug/incrEnc.d
+    	pro4E_Team2_software_sensorboard/pro4E_Team2_software_sensorboard/.vs/pro4E_Team2_software_sensorboard/v14/.atsuo
+    	pro4E_Team2_software_sensorboard/pro4E_Team2_software_sensorboard/Debug/SPI.o
+    	pro4E_Team2_software_sensorboard/pro4E_Team2_software_sensorboard/Tranceiver.c
+
+[33mcommit 3e3610d1f691593858b2e8acf2572d1716f4e71f[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Wed May 11 14:07:41 2016 +0200
+
+    UART Transceiver mit BAUDRate 2400
+
+[33mcommit 3341c1dfa07ab41866a0b6b09a8405bb4a608850[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed May 11 13:34:23 2016 +0200
+
+    something new
+
+[33mcommit 93a0bb3da3bab170cba100cee1adae59b0a78697[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed May 11 13:24:32 2016 +0200
+
+    encoder files from denis added
+
+[33mcommit b6f1f2b8207eaa7209d50b843b310e78d7196c13[m
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 11:32:52 2016 +0200
+
+    lskf
+
+[33mcommit d7cbdb7cf9155abc58feb0f7f1b964161118fb67[m
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 11:27:48 2016 +0200
+
+    mkldf
+
+[33mcommit c046203fa6377b02d5803db96d3707f2c35c0e49[m
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 11:16:40 2016 +0200
+
+    nk
+
+[33mcommit 9b5b4413d234a4f50e650e8e62cadb1fee208220[m
+Merge: 9f1818a eebc128
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 10:35:35 2016 +0200
+
+    dsf
+
+[33mcommit 9f1818a72197ecf8dce3cf60a887e66a60348ac8[m
+Merge: 798c327 9e9210e
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 10:30:34 2016 +0200
+
+    11.mai
+
+[33mcommit eebc12888ccec245349897a376a9a3902439ebce[m
+Merge: c5f246f 9e9210e
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Wed May 11 09:50:59 2016 +0200
+
+    blabla
+
+[33mcommit c5f246f30444b8d68d291912b2e08bc1b46abaae[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Wed May 11 09:49:05 2016 +0200
+
+    .gitignore
+
+[33mcommit bcbcab7822c62b8b15065d3d5762447c254f4d42[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Wed May 11 09:38:51 2016 +0200
+
+    uart.h lib hinzugefügt
+
+[33mcommit 798c32739d717a8aae4aea314b9f68272fa31bb2[m
+Author: simmenss <simmensss@github.com>
+Date:   Wed May 11 09:36:07 2016 +0200
+
+    sldkf
+
+[33mcommit 9e9210e773604c15e2fa4d2941c9715f77ae32fd[m
+Merge: b949407 c72e4d4
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed May 11 09:33:31 2016 +0200
+
+    solve merge, delete .atsuo
+
+[33mcommit b949407343b8acc2ba9150e72e9631d390762b19[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed May 11 09:28:44 2016 +0200
+
+    things
+
+[33mcommit 5ae4cdb44bc2d97798360596897945e33360942b[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed May 11 08:48:48 2016 +0200
+
+    last update
+
+[33mcommit c72e4d42052a6e4f1256b4d9c6b2a89851b5d6cf[m
+Merge: fd302e3 5ae4cdb
+Author: Yohmea <yohannes.measho@students.fhnw.ch>
+Date:   Wed May 11 07:27:08 2016 +0200
+
+    merge
+
+[33mcommit ed5dbb089fac7fbdbd9a8f436d2c59b8b2495850[m
+Merge: 773cc1a 7214ef8
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 17:56:38 2016 +0200
+
+    day after tomorrow
+
+[33mcommit 773cc1a82d80d79213298ba063bc31a6ddfa4f0b[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 17:53:28 2016 +0200
+
+    yes end of the day
+
+[33mcommit 7214ef8420bf688b17bde4539fd7cefb3610c315[m
+Author: simmenss <simmensss@github.com>
+Date:   Tue May 10 17:49:53 2016 +0200
+
+    jn
+
+[33mcommit 9db82645b352f5d1c7dc9bc4b29aeb1e83db15c4[m
+Author: simmenss <simmensss@github.com>
+Date:   Tue May 10 17:10:51 2016 +0200
+
+    interrupt eingefügt und kommentiert
+
+[33mcommit 0d880f13927100745d03307f980ae60ac1233f5a[m
+Author: simmenss <simmensss@github.com>
+Date:   Tue May 10 16:54:53 2016 +0200
+
+    enc_var
+
+[33mcommit 9b9609b65e48636e1884a2a5ceefcaf606736e07[m
+Author: simmenss <simmensss@github.com>
+Date:   Tue May 10 16:03:33 2016 +0200
+
+    ansteuerung leds
+
+[33mcommit cb21ccbe06944ab1085642bd37f70cbd204a70fc[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 15:43:36 2016 +0200
+
+    edit names in menutree
+
+[33mcommit bde180a05334631486ddf4102f46e538f0ecc0b6[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 15:05:48 2016 +0200
+
+    merged menutree with project
+
+[33mcommit 7afd41f109378027db3519ed05fb7ff18dab9361[m
+Merge: 08e0da7 81f4336
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 15:00:21 2016 +0200
+
+    last status
+
+[33mcommit 08e0da7f3b29844409264212b70b36d2aa3bffae[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 14:52:28 2016 +0200
+
+    backup
+
+[33mcommit 81f4336e2d3b3e21da2b5b2c96fb078105316cf0[m
+Author: simmenss <simmensss@github.com>
+Date:   Tue May 10 14:29:18 2016 +0200
+
+    leds
+
+[33mcommit 2293cdb0cbf8726c6e0b55d665823e0246f01144[m
+Merge: da35d74 58619ec
+Author: simmenss <simmensss@github.com>
+Date:   Tue May 10 13:42:24 2016 +0200
+
+    sldkfns
+
+[33mcommit da35d74967e89dcbcc3f2b793b334474fb61d5fa[m
+Author: simmenss <simmensss@github.com>
+Date:   Tue May 10 13:37:51 2016 +0200
+
+    dg
+
+[33mcommit 58619ec02ae4c5ce9897a20beddf7747f527f329[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 12:43:51 2016 +0200
+
+    claudius worked out
+
+[33mcommit dbcaef086f747971f25fb486bae0881d69f8f9f9[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Tue May 10 09:50:43 2016 +0200
+
+    Versuch 1 Receive Data
+
+[33mcommit b48337783c5207fef54b878ed74233c7f16e2763[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 10 08:18:49 2016 +0200
+
+    things from yesterday
+
+[33mcommit fd302e3ba1c770883dd46c89610ec4ab7dff8ff2[m
+Merge: 4e144ca dbcaef0
+Author: Yohmea <yohannes.measho@students.fhnw.ch>
+Date:   Tue May 10 08:02:54 2016 +0200
+
+    merge
+
+[33mcommit 4e144ca9f31f640981d1f815b7c4a67b9913f8e9[m
+Author: Yohmea <yohannes.measho@students.fhnw.ch>
+Date:   Tue May 10 07:56:46 2016 +0200
+
+    Update
+
+[33mcommit f8c9b6e29b909d557b2b95e2a3faf5a98e7046bf[m
+Author: simmenss <simmensss@github.com>
+Date:   Mon May 9 17:07:56 2016 +0200
+
+    incremental
+
+[33mcommit 61f8d2e88f0bc97f92df5c5662acf1af3e2d0732[m
+Author: simmenss <simmensss@github.com>
+Date:   Mon May 9 16:52:15 2016 +0200
+
+    incr
+
+[33mcommit cd32aa86c98ab36d69218996b73d72e9fe5290c7[m
+Author: simmenss <simmensss@github.com>
+Date:   Mon May 9 16:07:07 2016 +0200
+
+    incr
+
+[33mcommit 371399fbd805cb34cf9404480349ae85677f6523[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Mon May 9 16:06:04 2016 +0200
+
+    new encode code and display code
+
+[33mcommit 7f9542d62090cc258014474823d9b74ced64f90a[m
+Merge: 41505f6 d4ecdd2
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Mon May 9 15:58:35 2016 +0200
+
+    Merge branch 'master' of https://github.com/claudiusjoerg/pro4E_team2_software
+    
+    Conflicts:
+    	pro4E_Team2_software_sensorboard/pro4E_Team2_software_sensorboard/.vs/pro4E_Team2_software_sensorboard/v14/.atsuo
+
+[33mcommit 41505f6c334e9cf2ebd52f16cb4464a7b85495d4[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Mon May 9 15:48:55 2016 +0200
+
+    SPI Komplett neu. mit Atmen 6.2 und Atmen 7.0
+
+[33mcommit d4ecdd297a8947d142ae3e28278ac4bfb5fb8f68[m
+Author: simmenss <simmensss@github.com>
+Date:   Mon May 9 13:07:38 2016 +0200
+
+    benennung sensorplatine
+
+[33mcommit 8e7d38dd0ea0048825c54c01336055487c1b207d[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Mon May 9 10:53:36 2016 +0200
+
+    new pins for lcd driver
+
+[33mcommit f4e1c7aa8118cb5e7a768eb60109c6772008c6ea[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Mon May 9 08:39:24 2016 +0200
+
+    changes
+
+[33mcommit e880bb32a9461001f8f23b05a2c0ab96b2cdd926[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue May 3 15:14:23 2016 +0200
+
+    changed lcd_uno file
+
+[33mcommit befdb6fc9cd255e05995250c1557ad12b2fe29d2[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu Apr 28 16:31:29 2016 +0200
+
+    Neue .c Files und .h Files
+
+[33mcommit 511ea6b4f87ef9439774ba87ca6a4691f365a943[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu Apr 28 15:30:04 2016 +0200
+
+    wieder ganz
+
+[33mcommit b6dc508c8229fa09357523ca79db3815967fa305[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu Apr 28 14:25:37 2016 +0200
+
+    Komische Ordner gelöscht
+
+[33mcommit 36114498b740cc68aa785419e346d3d0925e1256[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Wed Apr 27 18:23:17 2016 +0200
+
+    prepared for display
+
+[33mcommit 8df60ad1c754995df24b88ce1735f02ccd256bfa[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue Apr 26 12:58:58 2016 +0200
+
+    blabla nothing to say
+
+[33mcommit 8b9d4e28061b36ffc1eefe115a4b2b696805b337[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Mon Apr 25 16:35:30 2016 +0200
+
+    am adc tüfteln
+
+[33mcommit 0d82a870db2b9a2ec9775d611bd81a5cd3697cee[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Mon Apr 25 09:07:47 2016 +0200
+
+    angepasst
+
+[33mcommit 7d60b84a2cb18cfb67fedc68c043075f7a414cce[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Fri Apr 22 19:07:55 2016 +0200
+
+    implement 12bit ADC code
+
+[33mcommit 590f88afce1e0bcea3d1c3770b926454692eafa9[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Fri Apr 22 14:00:34 2016 +0200
+
+    Something
+
+[33mcommit 7064aade039dea81c7fcdc8bd8a27a33339a27ac[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Tue Apr 19 13:31:23 2016 +0200
+
+    reportboard project added
+
+[33mcommit 353d936fb6561a3634920bb1449737f5864ef2e2[m
+Merge: e92ea3e 3ed587a
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Fri Apr 15 13:03:31 2016 +0200
+
+    new
+
+[33mcommit e92ea3eb5e849b784eb5d0394cf2df16dfa81563[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu Apr 14 17:15:07 2016 +0200
+
+    running adc test program
+
+[33mcommit 3ed587ac0cb2157bcdf47bce3d1593234ae3bfcb[m
+Author: Anita Rosenberger <anita.rosenberger@bilchen.ch>
+Date:   Thu Apr 14 15:47:56 2016 +0200
+
+    Nüt
+
+[33mcommit af6afb5db7f2c38afa49ea23c7fe4b2bb628ee33[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu Apr 7 15:18:22 2016 +0200
+
+    ueberarbeitete version
+
+[33mcommit 8a4ef7d35d8899661a8304fc6f16ac3c605c682d[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu Apr 7 14:42:27 2016 +0200
+
+    ueberarbeitete version
+
+[33mcommit ad530bcbb55fbb13b64f3ed88ddf1622bc789c54[m
+Author: claudiusjoerg <claudius.joerg@bluewin.ch>
+Date:   Thu Mar 17 15:25:41 2016 +0100
+
+    creat software folder

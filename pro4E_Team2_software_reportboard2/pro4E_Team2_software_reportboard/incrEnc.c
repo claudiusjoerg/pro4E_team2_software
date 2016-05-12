@@ -13,27 +13,30 @@
 
 #define BUTTONMASK 0b00010000
 
-#define PHASE_A	(EncPort_A & 1<<EncPIN_A)	// PINC.0
-#define PHASE_B (EncPort_B & 1<<EncPIN_B)	// PINC.1
+#define PHASE_A	(Encpins & (1<<EncPIN_A))	// PINC.0
+#define PHASE_B (Encpins & (1<<EncPIN_B))	// PINC.1
 
-static int8_t last;
+static int last;
+volatile int enc_delta;
+volatile int button;
+
 
 void init_encoder()
 {
-	EncDDR |= (0<<EncPIN_A)|(0<<EncPIN_B)|(0<<EncPIN_BT)|(1<<EncPIN_LED_BT)|(1<<EncPIN_LED3)|(1<<EncPIN_LED2)|(1<<EncPIN_LED1);   //intput 0, output 1
-
+	EncDDR |= (1<<EncPIN_LED_BT)|(1<<EncPIN_LED3)|(1<<EncPIN_LED2)|(1<<EncPIN_LED1);   //intput 0, output 1
+	EncPort = (1<<EncPIN_A)|(1<<EncPIN_B)|(1<<EncPIN_LED_BT); //enable pull ups
 }
 
-void check_button(void)//entpreller
+void check_button(void)										//entpreller
 {
 	static char old_button;
 	//static int autorepeat;
-	char current_button = ~PIND; //liest invertierte PINS ein, weil Pull-Up
-	button |= ~old_button & current_button & BUTTONMASK;//falls zustand gewechselt: button == 1 	
+	char current_button = ~Encpins;							//liest invertierte PINS ein, weil Pull-Up
+	button |= ~old_button & current_button & BUTTON;		//falls zustand gewechselt: button == 1 	
 }
 
 void erz_enc_delta(){
-		int8_t new, diff;
+		int new, diff;
 		
 		new = 0;
 		if( PHASE_A )
@@ -47,19 +50,6 @@ void erz_enc_delta(){
 		}
 }
 
-
-
-int8_t encode_read2( void )         // read two step encoders
-{
-	int8_t val;
-	
-	cli();
-	val = enc_delta;
-	enc_delta = val & 1;
-	sei();
-	return val >> 1;
-}
-
 void controlLED()			//DREHGEBER
 {
 	/*Knopffunktion*/
@@ -70,7 +60,7 @@ void controlLED()			//DREHGEBER
 	}
 			
 	/*Drehfunktion*/
-	switch(enc_delta)
+	switch(enc_delta%3)
 	{  //enc.Var. zw. -127...128 zeigt position an
 		case 1:
 		PORTD |= (1<<EncPIN_LED1);
@@ -92,6 +82,7 @@ void controlLED()			//DREHGEBER
 		break;
 				
 		default:
+		/*
 		if(enc_delta%3==0)
 		{
 			if(enc_delta>0)  // im uhrzeigersinn
@@ -118,19 +109,21 @@ void controlLED()			//DREHGEBER
 				PORTD |= (1<<EncPIN_LED3); // go to case -1
 			}
 		}
+		*/
 		break;
 	}
 }
 
 void init_ISR()
 {
-	//Initialisierung time interrupt
-	TCCR0B = 0b100; // Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
-	TIMSK0 = (1 << TOIE0);	//enable timer interrupt
+	//Initialisierung timer interrupt
+	TCNT0 = 0;
+	TCCR0B = 0b101;					// Prescaler: (Bits|Prescaler) ; (001|0) ; (010|8) ; (011|64) ; (100|256) ; (101|1024)
+	TIMSK0 = (1 << TOIE0);			//enable timer interrupt
 	sei();
 }
 
-ISR( TIMER0_OVF_vect )             // 1ms for manual movement
+ISR( TIMER0_OVF_vect )				// 1ms for manual movement
 {
 	erz_enc_delta();
 	check_button();					//schaut ob button gedrückt
