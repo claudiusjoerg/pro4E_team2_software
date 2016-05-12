@@ -61,10 +61,12 @@ int main(void)
 		lcd_cursor_addr(LINE2);
 		printf("Counter:%i",timercounter);
 		*/
-		enc_delta = encode_read2();
 		//controlLED();
-	
-		_delay_ms(1000);
+		printf("enc_delta=%d\rbutton is %s", enc_delta, (button & BUTTON)?"set":"reset";
+		
+		EncPort = EncPort & ~BUTTON | button;		
+		EncPort = EncPort & ~((0b111)<<EncPIN_LED1) | (enc_delta & 0b111)<<EncPIN_LED1;
+		_delay_ms(200);
 	}
 	
 	return 0;
