@@ -12,10 +12,11 @@ static volatile int8_t enc_delta;	// -128 ... 127
 typedef void (*Menufunc_T)(void);
 
 // menu data type (a struct with text to show plus corresponding menu function)
-struct MenuItem_T {
+struct MenuItem_T
+{
 	char * text;
 	Menufunc_T func;
-} ;
+};
 
 // global varaibles (normally not used)
 struct MenuItem_T * activeMenu;
