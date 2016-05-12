@@ -7,11 +7,12 @@
 #include "menutree.h"
 #include "menutree_demo.h"
 #include "board.h"
+#include "lcd_UNO.h"
 
 struct MenuItem_T * activeMenu;									//same as: static struct MenuItem_T activeMenu[];
 int activeMenuItem;
 static int nrMenuItems;
-volatile int8_t menu_Max;
+volatile int8_t menu_Max = 4;
 
 
 /**
@@ -30,6 +31,7 @@ void _LoadMenu(struct MenuItem_T menu[], int nrItems)
  */
 void ProcessMenu(char button)
 {
+#if 0
 	switch (button){
 		
 	case ENC_MENU:
@@ -53,7 +55,19 @@ void ProcessMenu(char button)
 		if (activeMenu[activeMenuItem].func!=NULL)  
 			activeMenu[activeMenuItem].func();					//execute the selected menufunction
 	}
+<<<<<<< HEAD
 	printf("\n%s",activeMenu[activeMenuItem].text);				//display current selected menu text
+#endif
+=======
+	lcd_cursor_addr(LINE1);
+	printf("%s",activeMenu[activeMenuItem].text);				//display current selected menu text
+	lcd_cursor_addr(LINE2);
+	printf("%s",activeMenu[activeMenuItem+1].text);	
+	lcd_cursor_addr(LINE3);
+	printf("%s",activeMenu[activeMenuItem+2].text);	
+	lcd_cursor_addr(LINE4);
+	printf("%s",activeMenu[activeMenuItem+3].text);	
+>>>>>>> 7b945e425374db8c67952510651b4dfc0453ebf4
 }
 
 

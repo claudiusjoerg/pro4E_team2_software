@@ -4,19 +4,16 @@
 // menutree.h
 // (c) Matthias Meier
 
-static volatile int8_t enc_delta;	// -128 ... 127
-
 //------------------------------------------------------------------------------
 
 //menu function type (a parameterless function with return value int)
 typedef void (*Menufunc_T)(void);
 
 // menu data type (a struct with text to show plus corresponding menu function)
-struct MenuItem_T
-{
+struct MenuItem_T {
 	char * text;
 	Menufunc_T func;
-};
+} ;
 
 // global varaibles (normally not used)
 struct MenuItem_T * activeMenu;
