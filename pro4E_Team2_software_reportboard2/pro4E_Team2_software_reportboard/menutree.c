@@ -5,6 +5,7 @@
 
 #include <stdio.h>
 #include "menutree.h"
+#include "menutree_demo.h"
 #include "board.h"
 
 struct MenuItem_T * activeMenu;									//same as: static struct MenuItem_T activeMenu[];
@@ -29,6 +30,7 @@ void _LoadMenu(struct MenuItem_T menu[], int nrItems)
  */
 void ProcessMenu(char button)
 {
+#if 0
 	switch (button){
 		
 	case ENC_MENU:
@@ -53,6 +55,7 @@ void ProcessMenu(char button)
 			activeMenu[activeMenuItem].func();					//execute the selected menufunction
 	}
 	printf("\n%s",activeMenu[activeMenuItem].text);				//display current selected menu text
+#endif
 }
 
 

@@ -21,8 +21,15 @@ void editName(void);
 //------------------------------------------------------------------------------
 // Global structs for external use
 
-static struct MenuItem_T MainMenu[];
+extern struct MenuItem_T MainMenu[4];
 /**/
-
+extern struct MenuItem_T  SubMenuName[2];
+/**/
+extern struct MenuItem_T  SubMenuNumber[2];
+/**/
+extern struct MenuItem_T  SubMenuStatus[4];
+/**/
+extern struct MenuItem_T  SubMenuAbout[1];
+/**/
 
 #endif //MENUTREEDEMO_H

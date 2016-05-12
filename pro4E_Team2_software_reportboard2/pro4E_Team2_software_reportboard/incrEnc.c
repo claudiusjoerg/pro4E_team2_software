@@ -13,11 +13,13 @@
 
 #define BUTTONMASK 0b00010000
 
-#define PHASE_A	(EncPins & 1<<EncPIN_A)	// PINC.0
-#define PHASE_B (EncPins & 1<<EncPIN_B)	// PINC.1
+#define PHASE_A	(EncPins & (1<<EncPIN_A))	// PINC.0
+#define PHASE_B (EncPins & (1<<EncPIN_B))	// PINC.1
 
 static int8_t last;
 volatile int enc_delta;
+volatile int button;
+
 
 void init_encoder()
 {
@@ -93,7 +95,7 @@ void controlLED()			//DREHGEBER
 		break;
 				
 		default:
-		if(enc_delta%3==0)
+		/*if(enc_delta%3==0)
 		{
 			if(enc_delta>0)  // im uhrzeigersinn
 			{
@@ -118,7 +120,7 @@ void controlLED()			//DREHGEBER
 			{
 				PORTD |= (1<<EncPIN_LED3); // go to case -1
 			}
-		}
+		}*/
 		break;
 	}
 }
@@ -137,3 +139,4 @@ ISR( TIMER0_OVF_vect )             // 1ms for manual movement
 	check_button();					//schaut ob button gedrückt
 	//timercounter++;
 }
+

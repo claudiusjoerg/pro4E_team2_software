@@ -20,9 +20,9 @@ ISR (TIMER0_OVF_vect)
 */
 
 // Globale Variabeln
-volatile int button = 0;
+extern volatile int button;
 //static int timercounter = 0;
-volatile int enc_delta;	// -128 ... 127
+extern volatile int enc_delta;	// -128 ... 127
 
 // Defines
 #define EncPort PORTD
@@ -40,7 +40,7 @@ volatile int enc_delta;	// -128 ... 127
 
 #define BUTTON (1<<EncPIN_BT)
 
-void init_encoder();
+extern void init_encoder();
 /* Initiiert den Drehgeber
 */
 
@@ -50,11 +50,11 @@ void check_button(void);
 
 
 void controlLED();
-/* LEDs ansteuertn
+/* LEDs ansteuern
 */
 
 void erz_enc_delta();
-/* changes encdelta of drehgeber
+/* changes enc_delta of drehgeber
 */
 
 void init_ISR();
