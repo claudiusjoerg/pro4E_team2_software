@@ -128,9 +128,6 @@
     <Compile Include="CRC.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="CRC.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="main.c">
       <SubType>compile</SubType>
     </Compile>
@@ -141,18 +138,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="uart.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Tranceiver.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Tranceiver.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="uart.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="uart.h">
       <SubType>compile</SubType>
     </Compile>
   </ItemGroup>
