@@ -59,7 +59,7 @@ int main(void)
 	while(1)
 	{
 		
-		ADC_receive();//SPI.h
+		//ADC_receive();//SPI.h
 		
 		//_delay_ms(20);
 		
