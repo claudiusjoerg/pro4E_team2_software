@@ -2,7 +2,7 @@
 # Automatically-generated file. Do not edit!
 ################################################################################
 
-SHELL := cmd.exe
+
 RM := rm -rf
 
 USER_OBJS :=
@@ -38,6 +38,7 @@ SUBDIRS :=
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS +=  \
 ../ADC.c \
+../CRC.c \
 ../main.c \
 ../SPI.c \
 ../Tranceiver.c \
@@ -52,6 +53,7 @@ ASM_SRCS +=
 
 OBJS +=  \
 ADC.o \
+CRC.o \
 main.o \
 SPI.o \
 Tranceiver.o \
@@ -59,6 +61,7 @@ uart.o
 
 OBJS_AS_ARGS +=  \
 ADC.o \
+CRC.o \
 main.o \
 SPI.o \
 Tranceiver.o \
@@ -66,6 +69,7 @@ uart.o
 
 C_DEPS +=  \
 ADC.d \
+CRC.d \
 main.d \
 SPI.d \
 Tranceiver.d \
@@ -73,6 +77,7 @@ uart.d
 
 C_DEPS_AS_ARGS +=  \
 ADC.d \
+CRC.d \
 main.d \
 SPI.d \
 Tranceiver.d \
@@ -92,6 +97,8 @@ LINKER_SCRIPT_DEP+=
 
 
 # AVR32/GNU C Compiler
+
+
 
 
 

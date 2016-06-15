@@ -1,8 +1,12 @@
-#ifndef MENUTREE_H
-#define MENUTREE_H
+#ifndef MENUDRIVE_H
+#define MENUDRIVE_H
+#define MaxSize 4
 
-// menutree.h
-// (c) Matthias Meier
+#define DREHGEBER (1<<4)
+
+#define ENC_MENU 	DREHGEBER 	// DREHGEBER used to proceed to next menu item
+
+volatile int value2;
 
 //------------------------------------------------------------------------------
 
@@ -16,7 +20,7 @@ struct MenuItem_T
 	Menufunc_T func;
 };
 
-// global varaibles (normally not used)
+// global variables (normally not used)
 struct MenuItem_T * activeMenu;
 int activeMenuItem;
 
@@ -30,10 +34,9 @@ void ProcessMenu(char button);
 //---------------------------------------------------------
 
 //internal function to load a new menu
-void _LoadMenu(struct MenuItem_T menu[], int nrMenuItems);
+void _LoadMenu(struct MenuItem_T menu[MaxSize], int nrMenuItems);
 
 //Macro to estimate the number of items in a menu
 #define NrArrayItems(array) (sizeof(array)/sizeof(array[0]))
 
-#endif //MENUTREE_H
-
+#endif //MENUDRIVE_H

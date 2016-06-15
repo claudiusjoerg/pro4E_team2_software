@@ -22,9 +22,23 @@ Discarded input sections
                 0x00000000       0x28 ADC.o
  .debug_ranges  0x00000000       0x18 ADC.o
  .debug_line    0x00000000       0xb0 ADC.o
- .debug_str     0x00000000      0x199 ADC.o
+ .debug_str     0x00000000      0x1a1 ADC.o
  .comment       0x00000000       0x31 ADC.o
  .debug_frame   0x00000000       0x34 ADC.o
+ .text          0x00000000        0x0 CRC.o
+ .data          0x00000000        0x0 CRC.o
+ .bss           0x00000000        0x0 CRC.o
+ .text.crc      0x00000000       0x30 CRC.o
+ .debug_info    0x00000000       0xfa CRC.o
+ .debug_abbrev  0x00000000       0x9e CRC.o
+ .debug_loc     0x00000000       0x47 CRC.o
+ .debug_aranges
+                0x00000000       0x20 CRC.o
+ .debug_ranges  0x00000000       0x10 CRC.o
+ .debug_line    0x00000000       0xfe CRC.o
+ .debug_str     0x00000000      0x1c5 CRC.o
+ .comment       0x00000000       0x31 CRC.o
+ .debug_frame   0x00000000       0x24 CRC.o
  .text          0x00000000        0x0 main.o
  .data          0x00000000        0x0 main.o
  .bss           0x00000000        0x0 main.o
@@ -89,6 +103,7 @@ Linker script and memory map
 Address of section .data set to 0x800100
 LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/../lib/gcc/avr/4.9.2/../../../../avr/lib/avr5/crtatmega328p.o
 LOAD ADC.o
+LOAD CRC.o
 LOAD main.o
 LOAD SPI.o
 LOAD Tranceiver.o
@@ -488,16 +503,16 @@ END GROUP
  .debug_frame   0x00000078       0x54 Tranceiver.o
  .debug_frame   0x000000cc       0xe0 uart.o
 
-.debug_str      0x00000000      0x2af
+.debug_str      0x00000000      0x2b7
  *(.debug_str)
- .debug_str     0x00000000      0x186 main.o
-                                0x1c4 (size before relaxing)
- .debug_str     0x00000186       0x10 SPI.o
-                                0x19c (size before relaxing)
- .debug_str     0x00000196       0x41 Tranceiver.o
-                                0x1e7 (size before relaxing)
- .debug_str     0x000001d7       0xd8 uart.o
-                                0x27f (size before relaxing)
+ .debug_str     0x00000000      0x18e main.o
+                                0x1cc (size before relaxing)
+ .debug_str     0x0000018e       0x10 SPI.o
+                                0x1a4 (size before relaxing)
+ .debug_str     0x0000019e       0x41 Tranceiver.o
+                                0x1ef (size before relaxing)
+ .debug_str     0x000001df       0xd8 uart.o
+                                0x287 (size before relaxing)
 
 .debug_loc      0x00000000      0x43e
  *(.debug_loc)
