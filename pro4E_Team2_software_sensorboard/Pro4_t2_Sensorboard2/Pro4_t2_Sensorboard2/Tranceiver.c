@@ -15,12 +15,12 @@ void init_Tranceiver(){
 
 void uebertragung_uart() {
 	//Daten Input vom ADC
-	 uint8_t data = ADC_receive();
+	 uint16_t data = ADC_receive();
 	//data = mittelwert(data);
 
 	//char *buffer = "Not implemented";
-	for (int i=0; i<8; i++)
-	{
+	
+	
 
 	 /*
      *  Transmit string to UART
@@ -29,7 +29,8 @@ void uebertragung_uart() {
      *  uart_puts() blocks if it can not write the whole string to the circular 
      *  buffer
      */
-    uart_putc(data);
+    uart_putc(data&0xff);//low 
+    uart_putc(data>>8);//High
 	
 	 /*
          * Get received character from ringbuffer
@@ -78,6 +79,6 @@ void uebertragung_uart() {
              * send received character back
              */
             uart_putc( (uint8_t )bit );
-		}
+
 	}
 }
